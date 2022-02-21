@@ -1,24 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-web';
-import { useState } from 'react/cjs/react.production.min';
+import { signUp } from '../../services/users';
 
- let [firstName, setFirstName] = useState("");
- let [lastName, setLastName] = useState("");
- let [email, setEmail] = useState("");
- let [password, setPassword] = useState("");
+const SignupScreen = ({navigation}) => {
+
+    let [firstName, setFirstName] = useState("");
+    let [lastName, setLastName] = useState("");
+    let [email, setEmail] = useState("");
+    let [password, setPassword] = useState("");
 
 
 
-const signUp = (firstName: String, lastName: String, email: String, password: String) => {
-    console.log(firstName)
-    console.log(lastName)
-    console.log(email)
-    console.log(password)
-    //login api call and load logged in page
-}
-
-const SignupForm = () => {
         return(
             <View>
                 <Text>First Name</Text>
@@ -40,9 +33,9 @@ const SignupForm = () => {
                     onChangeText={setPassword}></TextInput>
                 <Button
                     title="Sign Up"
-                    onPress={() => signUp(firstName, lastName, email, password)}/>
+                    onPress={() => signUp({navigation}, firstName, lastName, email, password)}/>
             </View>
         )
 }
 
-export default SignupForm
+export default SignupScreen
