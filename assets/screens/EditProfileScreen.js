@@ -12,10 +12,10 @@ const EditProfileScreen = () => {
 
     function updateDetails() {
 
-        const currentFirstName: String = firstName;
-        const currentLastName: String = lastName;
-        const currentEmail: String = email;
-        const currentPassword: String = password;
+        const currentFirstName = firstName;
+        const currentLastName = lastName;
+        const currentEmail = email;
+        const currentPassword = password;
 
         const updatedDetailsData = {};
 
@@ -28,7 +28,7 @@ const EditProfileScreen = () => {
         if (email != currentEmail){
             updatedDetailsData['email'] = email;
         }
-        if (password != currentPassword){
+        if (password != currentPassword && oldPassword == currentPassword){
             updatedDetailsData['password'] = password;
         }
 
