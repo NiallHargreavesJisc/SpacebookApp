@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, Image, Button, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import styles from "../styles/Style";
 
 const Posts = () => {
 
@@ -102,8 +103,12 @@ const Posts = () => {
                             <Text>{item.text}</Text>
                             <Text>{item.numLikes}</Text>
                             <Button
-                            onPress={() => editPost(item)}/>
+                                title="Edit Post"
+                                style={styles.button}
+                                onPress={() => editPost(item)}/>
                             <Button
+                                title="Delete Post"
+                                style={styles.button}
                                 onPress={() => deletePost(item)}/>
                         </View>)}
                     keyExtractor={(item) => item.post_id.toString()}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-web';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from "../styles/Style";
 
 const LoginScreen = ({navigation}) => {
 
@@ -46,7 +47,7 @@ const LoginScreen = ({navigation}) => {
     return(
 
 
-        <View>
+        <View style={styles.loginView}>
             <Text>Email</Text>
             <TextInput
                 placeholder="Email Address"
@@ -58,9 +59,11 @@ const LoginScreen = ({navigation}) => {
                 onChangeText={setPassword}/>
             <Button
                 title="Log In"
+                style={styles.button}
                 onPress={() => logIn()}/>
             <Button
                 title="No Account? Sign Up"
+                style={styles.button}
                 onPress={() => {navigation.navigate('Sign Up');}}/>
         </View>
     )
