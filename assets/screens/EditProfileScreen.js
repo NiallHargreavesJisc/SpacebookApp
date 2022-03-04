@@ -74,7 +74,7 @@ const EditProfileScreen = () => {
                 placeholder="New Password"
                 onChangeText={setPassword}/>
             <Button
-                title="Log In"
+                title="Update Details"
                 onPress={() => updateDetails}/>
         </View>
     )
