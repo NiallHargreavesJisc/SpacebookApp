@@ -3,6 +3,7 @@ import {View, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileTopper from "../components/ProfileTopper";
 import Posts from "../components/PostListComponent";
+import styles from "../styles/Style";
 
 const Profile = ({navigation}) => {
 
@@ -44,6 +45,7 @@ const Profile = ({navigation}) => {
             <Posts />
             <Button
                 title="Logout"
+                style={styles.button}
                 onPress={() => logout()}/>
         </View>
     )
