@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, FlatList, Text, TextInput, View} from "react-native";
+import {Button, FlatList, Text, TextInput, View, ScrollView} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/Style";
 
@@ -65,7 +65,7 @@ const SearchScreen = () => {
     }
 
     return (
-        <View>
+        <ScrollView>
             <TextInput
                 placeholder="Search..."
                 onChangeText={setSearchParam}/>
@@ -81,11 +81,12 @@ const SearchScreen = () => {
                         <Text>{item.user_givenname} {item.user_familyname}</Text>
                         <Button
                             title="Add Friend"
-                            onPress={() => sendFriendRequest(item.user_id)}/>
+                            onPress={() => sendFriendRequest(item.user_id)}
+                            style={styles.searchButton}/>
                     </View>)}
                 keyExtractor={(item) => item.user_id.toString()}
             />
-        </View>
+        </ScrollView>
     )
 }
 export default SearchScreen
