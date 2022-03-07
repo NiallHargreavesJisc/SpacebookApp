@@ -1,43 +1,79 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Text, View} from 'react-native';
 import { TextInput } from 'react-native-web';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EditProfileScreen = () => {
 
-    let [firstName, setFirstName] = useState("");
-    let [lastName, setLastName] = useState("");
-    let [email, setEmail] = useState("");
+
+
+    useEffect(async () => {
+        const authToken = await AsyncStorage.getItem('@session_token');
+        const userId = await AsyncStorage.getItem('@user_id');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
+            headers: {
+                'X-Authorization': authToken
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 401) {
+
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                console.log(responseJson);
+                setCurrentFirstName(responseJson.first_name);
+                setCurrentLastName(responseJson.last_name);
+                setCurrentEmail(responseJson.email)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    },[])
+
+    const [currentFirstName, setCurrentFirstName] = useState(null)
+    const [currentLastName, setCurrentLastName] = useState(null)
+    const [currentEmail, setCurrentEmail] = useState(null)
+
+    let [firstName, setFirstName] = useState(currentFirstName);
+    let [lastName, setLastName] = useState(currentLastName);
+    let [email, setEmail] = useState(currentEmail);
     let [password, setPassword] = useState("");
     let [oldPassword, setOldPassword] = useState("");
 
-    function updateDetails() {
 
-        const currentFirstName = firstName;
-        const currentLastName = lastName;
-        const currentEmail = email;
-        const currentPassword = password;
+
+    const updateDetails = async () => {
+
+        console.log("editing details")
 
         const updatedDetailsData = {};
 
-        if (firstName != currentFirstName){
+        if (firstName != currentFirstName && firstName != null&& firstName != '') {
             updatedDetailsData['first_name'] = firstName;
         }
-        if (lastName != currentLastName){
+        if (lastName != currentLastName && lastName != null && lastName != '') {
             updatedDetailsData['last_name'] = lastName;
         }
-        if (email != currentEmail){
+        if (email != currentEmail && email != null && email != '') {
             updatedDetailsData['email'] = email;
         }
-        if (password != currentPassword && oldPassword == currentPassword){
-            updatedDetailsData['password'] = password;
-        }
 
-        return fetch("http://localhost:3333/user",{
-            method: 'patch',
+        console.log(JSON.stringify(updatedDetailsData));
+
+        const authToken = await AsyncStorage.getItem('@session_token');
+        const userId = await AsyncStorage.getItem('@user_id');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
+            method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'content-type': 'application/json',
+                "X-Authorization": authToken
             },
-            body: JSON.stringify(updatedDetailsData)
+            body: updatedDetailsData
         })
             .then((response) => response.json())
             .then((responseJson) => {
@@ -75,7 +111,7 @@ const EditProfileScreen = () => {
                 onChangeText={setPassword}/>
             <Button
                 title="Update Details"
-                onPress={() => updateDetails}/>
+                onPress={() => updateDetails()}/>
         </View>
     )
 }
