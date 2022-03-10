@@ -2,7 +2,7 @@ import {Button, Text, TextInput, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useState} from "react";
 
-const WritePost = () => {
+const WritePost = (profileId) => {
 
     const [postText, setPostText] = useState(null);
 
@@ -13,9 +13,8 @@ const WritePost = () => {
     const post = async () => {
 
         const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
         if(postText != null && postText != ''){
-            return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/post", {
+            return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post", {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
