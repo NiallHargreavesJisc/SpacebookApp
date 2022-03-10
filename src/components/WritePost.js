@@ -23,7 +23,7 @@ const WritePost = (profileId) => {
                 body: JSON.stringify(postData)
             })
                 .then((response) => {
-                    if (response.status === 200) {
+                    if (response.status === 201) {
                         return response.json()
                     } else if (response.status === 401) {
 

@@ -4,7 +4,7 @@ import ProfileTopper from "../components/ProfileTopper";
 import Posts from "../components/PostListComponent";
 import WritePost from "../components/WritePost";
 import Header from "../components/Header";
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 
 const Profile = ({route}) => {
     const profileId  = route.params;

@@ -4,7 +4,7 @@ import { TextInput } from 'react-native-web';
 import LoginScreen from "./LogInScreen"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/Header";
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 
 const SignupScreen = ({navigation}) => {
 

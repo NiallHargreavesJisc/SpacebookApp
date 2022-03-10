@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Header from "../components/Header";
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 
 const EditPostScreen = () => {
     return (

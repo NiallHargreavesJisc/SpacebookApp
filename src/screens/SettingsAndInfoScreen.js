@@ -1,7 +1,7 @@
 import {Button, View} from "react-native";
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 import {useNavigation} from "@react-navigation/native";
 import Header from "../components/Header";
 

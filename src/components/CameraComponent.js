@@ -1,7 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import {View, Text, Button, Alert} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 import {Camera} from "expo-camera";
 import Image from "react-native-web/dist/vendor/react-native/Animated/components/AnimatedImage";
 import {useNavigation} from "@react-navigation/native";
@@ -73,15 +73,15 @@ const CameraScreen = () => {
                     type={type}
                     ratio={'1:1'} />
             </View>
-            <Button
-                title="Flip Image"
-                onPress={() => {
-                    setType(
-                        type === Camera.Constants.Type.back
-                            ? Camera.Constants.Type.front
-                            : Camera.Constants.Type.back
-                    );
-                }} />
+            {/*<Button*/}
+            {/*    title="Flip Image"*/}
+            {/*    onPress={() => {*/}
+            {/*        setType(*/}
+            {/*            type === Camera.Constants.Type.back*/}
+            {/*                ? Camera.Constants.Type.front*/}
+            {/*                : Camera.Constants.Type.back*/}
+            {/*        );*/}
+            {/*    }} />*/}
             <Button title="Take Picture" onPress={() => takePicture()} />
             {image &&
                 <View style={{flex:1}}>

@@ -13,8 +13,6 @@ const ProfileTopper = (profileId) => {
 
     useEffect(async () => {
 
-        console.log("ID: ")
-        console.log(profileId)
         const authToken = await AsyncStorage.getItem('@session_token');
         return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/photo", {
             method: 'GET',
@@ -31,7 +29,6 @@ const ProfileTopper = (profileId) => {
         })
             .then((responseBlob) => {
                 let data = URL.createObjectURL(responseBlob)
-                console.log(data);
                 setProfilePicture(data);
             })
             .catch((error) => {

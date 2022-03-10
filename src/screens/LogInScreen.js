@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Text, View, Button, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-web';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 import Header from "../components/Header";
 
 const LoginScreen = ({navigation}) => {

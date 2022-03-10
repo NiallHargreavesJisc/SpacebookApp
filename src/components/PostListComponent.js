@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, Button, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 
 const Posts = (profileId) => {
 

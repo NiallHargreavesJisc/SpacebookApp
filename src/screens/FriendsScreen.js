@@ -3,7 +3,7 @@ import FriendsList from "../components/FriendsList";
 import FriendRequests from "../components/FriendRequests";
 import Header from "../components/Header";
 import React from "react";
-import styles from "../styles/Style";
+import styles from "../assets/styles/Style";
 
 const FriendsScreen = () => {
 
