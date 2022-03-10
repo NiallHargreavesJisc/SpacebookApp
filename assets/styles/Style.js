@@ -4,9 +4,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    loginView: {
-        flex: 1
-    },
     friendsList: {
         flex: 1,
         justifyContent :"space-between"
