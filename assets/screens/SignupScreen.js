@@ -3,6 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-web';
 import LoginScreen from "./LogInScreen"
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "../components/Header";
 
 const SignupScreen = ({navigation}) => {
 
@@ -84,6 +85,7 @@ const SignupScreen = ({navigation}) => {
 
     return(
         <View>
+            <Header />
             <Text>First Name</Text>
             <TextInput
                 placeholder="First Name"

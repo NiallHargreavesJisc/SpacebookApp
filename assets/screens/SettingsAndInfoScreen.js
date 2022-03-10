@@ -3,6 +3,7 @@ import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/Style";
 import {useNavigation} from "@react-navigation/native";
+import Header from "../components/Header";
 
 const SettingsAndInfoScreen = () => {
 
@@ -33,6 +34,7 @@ const SettingsAndInfoScreen = () => {
 
     return (
         <View>
+            <Header />
             <Button
                 title="Edit Profile"
                 onPress={() => navigation.navigate("Edit Profile")}/>

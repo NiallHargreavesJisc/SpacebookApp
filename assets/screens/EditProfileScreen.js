@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Text, View} from 'react-native';
 import { TextInput } from 'react-native-web';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Header from "../components/Header";
 
 const EditProfileScreen = () => {
 
@@ -86,6 +87,7 @@ const EditProfileScreen = () => {
 
     return(
         <View>
+            <Header />
             <Text>Update User</Text>
             <Text>First Name</Text>
             <TextInput

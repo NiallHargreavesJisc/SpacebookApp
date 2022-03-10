@@ -1,56 +1,23 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, Button} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileTopper from "../components/ProfileTopper";
 import Posts from "../components/PostListComponent";
-import styles from "../styles/Style";
+import WritePost from "../components/WritePost";
+import Header from "../components/Header";
 
-const Profile = ({navigation}) => {
-
-
-
-    useEffect (async () => {
-        const value = await AsyncStorage.getItem('@session_token');
-        if (value == null) {
-            navigation.navigate('Login');
-        }
-    }, []);
-
-    const logout = async () => {
-        let authToken = await AsyncStorage.getItem('@session_token');
-        await AsyncStorage.removeItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/logout", {
-            method: 'post',
-            headers: {
-                "X-Authorization": authToken
-            }
-        })
-            .then((response) => {
-                if(response.status === 200){
-                    navigation.navigate("Login");
-                }else if(response.status === 401){
-                    navigation.navigate("Login");
-                }else{
-                    throw 'Something went wrong';
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
+const Profile = ({route}) => {
+    const profileId  = route.params;
+    console.log(profileId)
+    console.log(profileId.valueOf())
+    console.log(profileId.profileId)
     return(
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <ProfileTopper />
-            <Posts />
-            <Button
-                title="Logout"
-                style={styles.button}
-                onPress={() => logout()}/>
+        <View>
+            <Header />
+            <ProfileTopper profileId={profileId.profileId} />
+            <WritePost profileId={profileId.profileId} />
+            <Posts profileId={profileId.profileId} />
         </View>
     )
-
-
 
 }
 

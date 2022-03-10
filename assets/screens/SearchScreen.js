@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, FlatList, Text, TextInput, View, ScrollView} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/Style";
+import Header from "../components/Header";
 
 const SearchScreen = () => {
 
@@ -66,6 +67,7 @@ const SearchScreen = () => {
 
     return (
         <ScrollView>
+            <Header />
             <TextInput
                 placeholder="Search..."
                 onChangeText={setSearchParam}/>
