@@ -40,7 +40,7 @@ const FriendsList = () => {
 
     const goToProfile = (userId) => {
         console.log("navigating")
-        navigation.navigate("Profile", {profileId: userId} );
+        navigation.navigate("Friends Profile", {profileId: userId} );
         console.log("navigated")
     }
 
