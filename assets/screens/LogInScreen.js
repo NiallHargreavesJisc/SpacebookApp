@@ -48,7 +48,7 @@ const LoginScreen = ({navigation}) => {
     return(
 
 
-        <View style={styles.loginView}>
+        <View style={styles.container}>
             <Header />
             <Text>Email</Text>
             <TextInput

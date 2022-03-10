@@ -3,11 +3,12 @@ import FriendsList from "../components/FriendsList";
 import FriendRequests from "../components/FriendRequests";
 import Header from "../components/Header";
 import React from "react";
+import styles from "../styles/Style";
 
 const FriendsScreen = () => {
 
     return (
-        <View>
+        <View style={styles.container}>
             <Header />
             <FriendsList />
             <FriendRequests />

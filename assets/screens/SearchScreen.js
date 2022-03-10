@@ -66,7 +66,7 @@ const SearchScreen = () => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <Header />
             <TextInput
                 placeholder="Search..."

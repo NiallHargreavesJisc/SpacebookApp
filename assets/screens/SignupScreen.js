@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-web';
 import LoginScreen from "./LogInScreen"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/Header";
+import styles from "../styles/Style";
 
 const SignupScreen = ({navigation}) => {
 
@@ -84,25 +85,25 @@ const SignupScreen = ({navigation}) => {
     }
 
     return(
-        <View>
+        <View style={styles.container}>
             <Header />
             <Text>First Name</Text>
             <TextInput
                 placeholder="First Name"
-                onChangeText={setFirstName}></TextInput>
+                onChangeText={setFirstName}/>
             <Text>Last Name</Text>
             <TextInput
                 placeholder="Last Name"
-                onChangeText={setLastName}></TextInput>
+                onChangeText={setLastName}/>
             <Text>Email</Text>
             <TextInput
                 placeholder="Email Address"
-                onChangeText={setEmail}></TextInput>
+                onChangeText={setEmail}/>
             <Text>Password</Text>
             <TextInput
                 secureTextEntry
                 placeholder="Password"
-                onChangeText={setPassword}></TextInput>
+                onChangeText={setPassword}/>
             <Button
                 title="Sign Up"
                 onPress={() => signUp()}/>

@@ -33,7 +33,7 @@ const SettingsAndInfoScreen = () => {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <Header />
             <Button
                 title="Edit Profile"
