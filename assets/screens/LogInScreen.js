@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, View, Button } from 'react-native';
+import {Text, View, Button, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-web';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "../styles/Style";
+import Header from "../components/Header";
 
 const LoginScreen = ({navigation}) => {
 
@@ -48,6 +49,7 @@ const LoginScreen = ({navigation}) => {
 
 
         <View style={styles.loginView}>
+            <Header />
             <Text>Email</Text>
             <TextInput
                 placeholder="Email Address"
@@ -57,14 +59,19 @@ const LoginScreen = ({navigation}) => {
                 secureTextEntry
                 placeholder="Password"
                 onChangeText={setPassword}/>
-            <Button
-                title="Log In"
-                style={styles.button}
-                onPress={() => logIn()}/>
-            <Button
-                title="No Account? Sign Up"
-                style={styles.button}
-                onPress={() => {navigation.navigate('Sign Up');}}/>
+            <View style={styles.loginButtonView}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => logIn()}>
+                    <Text style = {styles.buttonText}>Log In</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {navigation.navigate('Sign Up');}}>
+                    <Text style = {styles.buttonText}>No Account? Sign Up</Text>
+                </TouchableOpacity>
+            </View>
+
         </View>
     )
 }
