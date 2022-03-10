@@ -1,12 +1,15 @@
 import {Button, FlatList, Text, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useNavigation} from "@react-navigation/native";
 
 
 const FriendsList = () => {
 
     const [friends, setFriends] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+
+    const navigation = useNavigation();
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
@@ -35,6 +38,12 @@ const FriendsList = () => {
             })
     },[])
 
+    const goToProfile = (userId) => {
+        console.log("navigating")
+        navigation.navigate("Profile", {profileId: userId} );
+        console.log("navigated")
+    }
+
     if (isLoading == false) {
         if (friends.length == 0) {
             return (
@@ -47,7 +56,11 @@ const FriendsList = () => {
                     renderItem={({item}) => (
                         <View>
                             <Text>{item.user_givenname} {item.user_familyname}</Text>
-                        </View>)}>
+                            <Button title="Visit Profile" onPress={() => goToProfile(item.user_id)}
+                                    />
+                        </View>
+                    )}
+                    keyExtractor={(item) => item.user_id.toString()}>
 
                 </FlatList>
             )
