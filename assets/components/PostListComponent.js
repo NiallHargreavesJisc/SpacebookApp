@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import styles from "../styles/Style";
 
-const Posts = () => {
+const Posts = (profileId) => {
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -14,8 +14,7 @@ const Posts = () => {
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/post", {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post", {
             method: 'GET',
             headers: {
                 'X-Authorization': authToken
@@ -37,12 +36,11 @@ const Posts = () => {
             .catch((error) => {
                 console.log(error);
             })
-    },[])
+    },[profileId])
 
     const likePost = async (postId) => {
         const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/post/" + postId + "/like", {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post/" + postId + "/like", {
             method: 'POST',
             headers: {
                 'X-Authorization': authToken
@@ -79,7 +77,7 @@ const Posts = () => {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    navigation.goBack();
+                    navigation.navigate("Profile");
                 } else if (response.status === 401) {
                     console.log("Post Could not be deleted")
                 } else {

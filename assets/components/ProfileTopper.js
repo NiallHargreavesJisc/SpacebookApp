@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, View, Image, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfileTopper = () => {
+const ProfileTopper = (profileId) => {
 
 
     const [profilePicture, setProfilePicture] = useState(null);
@@ -12,9 +12,11 @@ const ProfileTopper = () => {
 
 
     useEffect(async () => {
+
+        console.log("ID: ")
+        console.log(profileId)
         const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/photo", {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/photo", {
             method: 'GET',
             headers: {
                 'X-Authorization': authToken
@@ -35,12 +37,11 @@ const ProfileTopper = () => {
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [profileId])
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId, {
             headers: {
                 'X-Authorization': authToken
             }
@@ -49,7 +50,7 @@ const ProfileTopper = () => {
                 if (response.status === 200) {
                     return response.json()
                 } else if (response.status === 401) {
-                    navigation.navigate("Login");
+
                 } else {
                     throw 'Something went wrong';
                 }
@@ -63,17 +64,16 @@ const ProfileTopper = () => {
             .catch((error) => {
                 console.log(error);
             })
-    },[])
+    },[profileId])
 
 
 
     return(
         <View>
-            <Text>{firstName} {lastName}</Text>
             <Image
                 source={{uri: profilePicture}}
-                style={{width: 60, height: 60}}
             ></Image>
+            <Text>{firstName} {lastName}</Text>
             <Text>Friends: {friends}</Text>
         </View>
     )
