@@ -8,15 +8,14 @@ import styles from "../assets/styles/Style";
 
 const Profile = ({route}) => {
     const profileId  = route.params;
-    console.log(profileId)
-    console.log(profileId.valueOf())
-    console.log(profileId.profileId)
     return(
         <View style={styles.container}>
             <Header />
-            <ProfileTopper profileId={profileId.profileId} />
-            <WritePost profileId={profileId.profileId} />
-            <Posts profileId={profileId.profileId} />
+            <View style={styles.container}>
+                <ProfileTopper profileId={profileId.profileId} />
+                <WritePost profileId={profileId.profileId} />
+                <Posts profileId={profileId.profileId} />
+            </View>
         </View>
     )
 

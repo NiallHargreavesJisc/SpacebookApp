@@ -66,29 +66,32 @@ const SearchScreen = () => {
     }
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <Header />
-            <TextInput
-                placeholder="Search..."
-                onChangeText={setSearchParam}/>
-            <Button
-                title={"Search"}
-                style={styles.button}
-                onPress={() => searchFriends()}/>
-            <FlatList
-                data={searchResults}
-                extraData={searchLoading}
-                renderItem={({item}) => (
-                    <View>
-                        <Text>{item.user_givenname} {item.user_familyname}</Text>
-                        <Button
-                            title="Add Friend"
-                            onPress={() => sendFriendRequest(item.user_id)}
-                            style={styles.searchButton}/>
-                    </View>)}
-                keyExtractor={(item) => item.user_id.toString()}
-            />
-        </ScrollView>
+            <ScrollView>
+                <TextInput
+                    placeholder="Search..."
+                    onChangeText={setSearchParam}/>
+                <Button
+                    title={"Search"}
+                    style={styles.button}
+                    onPress={() => searchFriends()}/>
+                <FlatList
+                    data={searchResults}
+                    extraData={searchLoading}
+                    renderItem={({item}) => (
+                        <View>
+                            <Text>{item.user_givenname} {item.user_familyname}</Text>
+                            <Button
+                                title="Add Friend"
+                                onPress={() => sendFriendRequest(item.user_id)}
+                                style={styles.searchButton}/>
+                        </View>)}
+                    keyExtractor={(item) => item.user_id.toString()}
+                />
+            </ScrollView>
+        </View>
+
     )
 }
 export default SearchScreen
