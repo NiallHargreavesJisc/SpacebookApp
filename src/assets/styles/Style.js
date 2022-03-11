@@ -62,8 +62,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     profilePicture: {
-        height: 200,
-        width: 200
+        height: 150,
+        width: 150
+    },
+    postButtons: {
+        flexDirection: "row",
+        justifyContent: "space-around",
     }
 });
 
