@@ -60,6 +60,10 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: "bold",
         alignItems: "center",
+    },
+    profilePicture: {
+        height: 200,
+        width: 200
     }
 });
 

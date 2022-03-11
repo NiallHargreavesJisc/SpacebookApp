@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, Image, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from "../assets/styles/Style";
 
 const ProfileTopper = (profileId) => {
 
@@ -69,7 +70,8 @@ const ProfileTopper = (profileId) => {
         <View>
             <Image
                 source={{uri: profilePicture}}
-            ></Image>
+                style={styles.profilePicture}
+            />
             <Text>{firstName} {lastName}</Text>
             <Text>Friends: {friends}</Text>
         </View>
