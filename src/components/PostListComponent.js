@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Button, FlatList} from 'react-native';
+import {Text, View, Button, FlatList, TouchableOpacity, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import styles from "../assets/styles/Style";
@@ -14,6 +14,7 @@ const Posts = (profileId) => {
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
+        console.log("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post");
         return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post", {
             method: 'GET',
             headers: {
@@ -63,55 +64,58 @@ const Posts = (profileId) => {
             })
     }
 
-    const editPost = (item) => {
-        navigation.navigate("Edit Post");
-    }
-
-    const deletePost = async (post) => {
-        let authToken = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + post.author.user_id + "/post/" + post.post_id, {
-            method: 'delete',
+    const unlikePost = async (postId) => {
+        const authToken = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post/" + postId + "/like", {
+            method: 'DELETE',
             headers: {
-                "X-Authorization": authToken
+                'X-Authorization': authToken
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                return response.json()
+                console.log(response.json())
+            } else if (response.status === 401) {
+                throw '401 response'
+            } else {
+                throw 'Something went wrong';
             }
         })
-            .then((response) => {
-                if (response.status === 200) {
-                    navigation.navigate("Profile");
-                } else if (response.status === 401) {
-                    console.log("Post Could not be deleted")
-                } else {
-                    throw 'Something went wrong';
-                }
-            }).then(
+            .then((responseJson) => {
 
-            )
+            })
             .catch((error) => {
                 console.log(error);
             })
     }
 
+
+
     if (isLoading === false) {
         return (
-            <View>
+            <ScrollView>
                 <FlatList
                     data={posts}
                     renderItem={({item}) => (
                         <View>
                             <Text>{item.text}</Text>
                             <Text>{item.numLikes}</Text>
-                            <Button
-                                title="Edit Post"
-                                style={styles.button}
-                                onPress={() => editPost(item)}/>
-                            <Button
-                                title="Delete Post"
-                                style={styles.button}
-                                onPress={() => deletePost(item)}/>
+                            <View style={styles.postButtons}>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => likePost(item.post_id)}><Text style={styles.buttonText}>Like Post</Text></TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => unlikePost(item.post_id)}><Text style={styles.buttonText}>Unlike Post</Text></TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => navigation.navigate("Post", {profileId: profileId.profileId, postId: item.post_id})}><Text style={styles.buttonText}>View Post</Text></TouchableOpacity>
+                            </View>
+
                         </View>)}
                     keyExtractor={(item) => item.post_id.toString()}
                 />
-            </View>
+            </ScrollView>
         )
     } else return (
         <View>
