@@ -10,6 +10,7 @@ import MainAppScreen from "./src/screens/MainAppScreen";
 import CameraScreen from "./src/components/CameraComponent";
 import EditProfileScreen from "./src/screens/EditProfileScreen";
 import Profile from "./src/screens/Profile";
+import Post from "./src/components/Post";
 
 
 const Stack = createNativeStackNavigator();
@@ -28,7 +29,8 @@ export const App = () => {
           <Stack.Screen name={"Edit Post"} component={EditPostScreen} />
           <Stack.Screen name={"Edit Profile"} component={EditProfileScreen} />
           <Stack.Screen name={"Camera"} component={CameraScreen} />
-          <Stack.Screen name="Friends Profile" component={Profile} />
+          <Stack.Screen name={"Friends Profile"} component={Profile} />
+          <Stack.Screen name={"Post"} component={Post} />
         </Stack.Navigator>
       </NavigationContainer>
   );
