@@ -2,11 +2,11 @@ import {Button, Text, TouchableOpacity, View} from "react-native";
 import styles from "../assets/styles/Style";
 import React, {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Header from "./Header";
+import Header from "../components/Header";
 import {useNavigation} from "@react-navigation/native";
 
 
-const Post = ({route}) => {
+const PostSceen = ({route}) => {
 
     const profileId = route.params.profileId;
     const postId = route.params.postId;
@@ -47,11 +47,11 @@ const Post = ({route}) => {
             })
     },[profileId])
 
-    const editPost = (post) => {
-        navigation.navigate("Edit Post", {post: post});
+    const editPost = () => {
+        navigation.navigate("Edit PostSceen", {post: post});
     }
 
-    const deletePost = async (post) => {
+    const deletePost = async () => {
         let authToken = await AsyncStorage.getItem('@session_token');
         return fetch("http://localhost:3333/api/1.0.0/user/" + post.author.user_id + "/post/" + post.post_id, {
             method: 'delete',
@@ -63,7 +63,7 @@ const Post = ({route}) => {
                 if (response.status === 200) {
                     navigation.goBack();
                 } else if (response.status === 401) {
-                    console.log("Post Could not be deleted")
+                    console.log("PostSceen Could not be deleted")
                 } else {
                     throw 'Something went wrong';
                 }
@@ -107,4 +107,4 @@ const Post = ({route}) => {
 
 }
 
-export default Post
+export default PostSceen
