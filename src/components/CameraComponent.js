@@ -1,5 +1,5 @@
-import React, {Component, useEffect, useState} from 'react';
-import {View, Text, Button, Alert} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, Button} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../assets/styles/Style";
 import {Camera} from "expo-camera";
@@ -19,20 +19,27 @@ const CameraScreen = () => {
 
     useEffect(() => {
         (async () => {
-            const cameraStatus = await Camera.requestCameraPermissionsAsync();
-            setHasCameraPermission(cameraStatus.status === 'granted');
+            try{
+                const cameraStatus = await Camera.requestCameraPermissionsAsync();
+                setHasCameraPermission(cameraStatus.status === 'granted');
+            } catch (e) {
+                console.log("Camera: " + e)
+            }
         })();
     }, []);
 
     const takePicture = async () => {
         if(camera){
-            const data = await camera.takePictureAsync(null)
-            setImageData(await camera.takePictureAsync(null));
-            setImage(await data.uri);
-            console.log(imageData);
-            console.log(data.uri);
+            const options = {
+                quality: 0.5,
+                base64: true,
+            };
+            const data = await camera.takePictureAsync(options)
+             setImage(data.uri);
+             setImageData(data);
         }
     }
+
     if (hasCameraPermission === false) {
         return <Text>No access to camera</Text>;
     }
@@ -40,19 +47,25 @@ const CameraScreen = () => {
     const uploadPicture = async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id');
+        console.log(image)
+        let res = await fetch(imageData.base64);
+        let blob = await res.blob();
+        console.log("RES:",res);
+        console.log("Blob",blob);
+
         return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/photo", {
             method: 'post',
             headers: {
                 "Content-Type": "image/jpeg",
                 "X-Authorization": authToken
             },
-            body: image
+            body: blob
         })
             .then((response) => {
                 if (response.status === 200) {
-                    navigation.navigate("Profile");
+                    navigation.navigate("Profile", {profileId: userId});
                 } else if (response.status === 401) {
-                    console.log("Post Could not be deleted")
+                    console.log("Could not upload photo")
                 } else {
                     throw 'Something went wrong';
                 }
@@ -73,15 +86,15 @@ const CameraScreen = () => {
                     type={type}
                     ratio={'1:1'} />
             </View>
-            {/*<Button*/}
-            {/*    title="Flip Image"*/}
-            {/*    onPress={() => {*/}
-            {/*        setType(*/}
-            {/*            type === Camera.Constants.Type.back*/}
-            {/*                ? Camera.Constants.Type.front*/}
-            {/*                : Camera.Constants.Type.back*/}
-            {/*        );*/}
-            {/*    }} />*/}
+            <Button
+                title="Flip Image"
+                onPress={() => {
+                    setType(
+                        type === Camera.Constants.Type.back
+                            ? Camera.Constants.Type.front
+                            : Camera.Constants.Type.back
+                    );
+                }} />
             <Button title="Take Picture" onPress={() => takePicture()} />
             {image &&
                 <View style={{flex:1}}>
