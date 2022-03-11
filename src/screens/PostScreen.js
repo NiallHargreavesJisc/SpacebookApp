@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import {useNavigation} from "@react-navigation/native";
 
 
-const PostSceen = ({route}) => {
+const PostScreen = ({route}) => {
 
     const profileId = route.params.profileId;
     const postId = route.params.postId;
@@ -48,7 +48,7 @@ const PostSceen = ({route}) => {
     },[profileId])
 
     const editPost = () => {
-        navigation.navigate("Edit PostSceen", {post: post});
+        navigation.navigate("Edit PostScreen", {post: post});
     }
 
     const deletePost = async () => {
@@ -63,7 +63,7 @@ const PostSceen = ({route}) => {
                 if (response.status === 200) {
                     navigation.goBack();
                 } else if (response.status === 401) {
-                    console.log("PostSceen Could not be deleted")
+                    console.log("PostScreen Could not be deleted")
                 } else {
                     throw 'Something went wrong';
                 }
@@ -107,4 +107,4 @@ const PostSceen = ({route}) => {
 
 }
 
-export default PostSceen
+export default PostScreen
