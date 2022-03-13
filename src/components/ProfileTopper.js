@@ -67,13 +67,15 @@ const ProfileTopper = (profileId) => {
 
 
     return(
-        <View>
+        <View style={styles.profileTopper}>
             <Image
                 source={{uri: profilePicture}}
                 style={styles.profilePicture}
             />
-            <Text>{firstName} {lastName}</Text>
-            <Text>Friends: {friends}</Text>
+            <View>
+                <Text style={styles.profileNameText} >{firstName} {lastName}</Text>
+                <Text>Friends: {friends}</Text>
+            </View>
         </View>
     )
 

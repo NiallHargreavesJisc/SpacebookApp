@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        padding: 5
     },
     friendsList: {
         flex: 1,
@@ -18,14 +19,11 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end"
     },
     button: {
-        flex: 0.4,
-        flexDirection: "row",
-        alignSelf: 'center',
-        color: 'green',
+        flex: 1,
         backgroundColor: 'blue',
         padding: 10,
         borderRadius: 10,
-
+        marginHorizontal: 5,
     },
     buttonText: {
         color: 'white',
@@ -33,7 +31,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     searchButton: {
-        flex: 0.1,
+        flex: 1,
         alignSelf: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'blue',
@@ -42,6 +40,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
 
+    },
+    settingsButtonView: {
+        justifyContent: "space-around",
     },
     text: {
         fontSize: 18,
@@ -61,14 +62,43 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignItems: "center",
     },
+    profileTopper: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        padding: 15,
+        borderRadius: 4,
+    },
     profilePicture: {
-        height: 150,
-        width: 150
+        height: 100,
+        width: 100,
+    },
+    profileNameText: {
+        fontSize: 22
+    },
+    postText: {
+        fontSize: 14,
+    },
+    postAuthor: {
+        fontSize: 10,
+        alignSelf: "flex-end"
     },
     postButtons: {
         flexDirection: "row",
         justifyContent: "space-around",
-    }
+        padding: 5,
+    },
+    postListItem: {
+        padding: 5,
+        borderWidth: 1,
+        borderStyle: "dotted",
+        borderColor: "blue",
+        margin: 2,
+    },
+    writePost: {
+        padding: 5,
+    },
 });
 
 export default styles;

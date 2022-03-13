@@ -89,27 +89,39 @@ const Posts = (profileId) => {
             })
     }
 
+    const getDateOfPost = (timestamp) => {
+
+        const d = new Date(timestamp);
+        let date = d.getDate() + "-" + d.getUTCMonth()  + "-" + d.getFullYear();
+        return date;
+
+    }
+
 
 
     if (isLoading === false) {
         return (
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <FlatList
                     data={posts}
                     renderItem={({item}) => (
-                        <View>
-                            <Text>{item.text}</Text>
-                            <Text>{item.numLikes}</Text>
+                        <View style={styles.postListItem}>
+                            <Text style={styles.postText}>{item.text}</Text>
+                            <Text style={styles.postAuthor}>{item.author.first_name} {item.author.last_name} - {getDateOfPost(item.timestamp).toString()}</Text>
+                            <Text>Likes: {item.numLikes}</Text>
                             <View style={styles.postButtons}>
                                 <TouchableOpacity
                                     style={styles.button}
-                                    onPress={() => likePost(item.post_id)}><Text style={styles.buttonText}>Like Post</Text></TouchableOpacity>
+                                    onPress={() => likePost(item.post_id)}
+                                ><Text style={styles.buttonText}>Like Post</Text></TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.button}
-                                    onPress={() => unlikePost(item.post_id)}><Text style={styles.buttonText}>Unlike Post</Text></TouchableOpacity>
+                                    onPress={() => unlikePost(item.post_id)}
+                                ><Text style={styles.buttonText}>Unlike Post</Text></TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.button}
-                                    onPress={() => navigation.navigate("Post", {profileId: profileId.profileId, postId: item.post_id})}><Text style={styles.buttonText}>View Post</Text></TouchableOpacity>
+                                    onPress={() => navigation.navigate("PostScreen", {profileId: profileId.profileId, postId: item.post_id})}
+                                ><Text style={styles.buttonText}>View Post</Text></TouchableOpacity>
                             </View>
 
                         </View>)}
