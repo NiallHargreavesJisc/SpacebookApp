@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {View} from 'react-native';
 import ProfileTopper from "../components/ProfileTopper";
 import Posts from "../components/PostListComponent";
 import WritePost from "../components/WritePost";
