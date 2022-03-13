@@ -1,7 +1,8 @@
-import {Button, FlatList, Text, View} from "react-native";
+import {FlatList, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation} from "@react-navigation/native";
+import styles from "../assets/styles/Style";
 
 
 const FriendsList = () => {
@@ -56,8 +57,10 @@ const FriendsList = () => {
                     renderItem={({item}) => (
                         <View>
                             <Text>{item.user_givenname} {item.user_familyname}</Text>
-                            <Button title="Visit Profile" onPress={() => goToProfile(item.user_id)}
-                                    />
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => goToProfile(item.user_id)}
+                            ><Text>Visit Profile</Text></TouchableOpacity>
                         </View>
                     )}
                     keyExtractor={(item) => item.user_id.toString()}>

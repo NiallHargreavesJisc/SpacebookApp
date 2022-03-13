@@ -1,4 +1,4 @@
-import {Button, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../assets/styles/Style";
@@ -35,16 +35,15 @@ const SettingsAndInfoScreen = () => {
     return (
         <View style={styles.container}>
             <Header />
-            <Button
-                title="Edit Profile"
-                onPress={() => navigation.navigate("Edit Profile")}/>
-            <Button
-                title="Take New Photo"
-                onPress={() => navigation.navigate("Camera")}/>
-            <Button
-                title="Logout"
+            <TouchableOpacity
                 style={styles.button}
-                onPress={() => logout()}/>
+                onPress={() => navigation.navigate("Edit Profile")}><Text>Edit Profile</Text></TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("Camera")}><Text>Take New Photo</Text></TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => logout()}><Text>Log Out</Text></TouchableOpacity>
         </View>
     )
 }

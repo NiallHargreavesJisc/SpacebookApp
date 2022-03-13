@@ -1,4 +1,4 @@
-import {Button, FlatList, Text, View} from "react-native";
+import {FlatList, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -76,14 +76,14 @@ const FriendRequests = () => {
                     renderItem={({item}) => (
                         <View>
                             <Text>{item.first_name} {item.last_name}</Text>
-                            <Button
+                            <TouchableOpacity
                                 title="Accept"
                                 onPress={() => requestResponse("POST", item.user_id)}
-                            />
-                            <Button
+                            ><Text>Accept</Text></TouchableOpacity>
+                            <TouchableOpacity
                                 title="Reject"
                                 onPress={() => requestResponse("DELETE", item.user_id)}
-                            />
+                            ><Text>Reject</Text></TouchableOpacity>
                         </View>)}>
 
                 </FlatList>

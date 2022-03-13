@@ -1,6 +1,7 @@
-import {Button, Text, TextInput, View} from "react-native";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useState} from "react";
+import styles from "../assets/styles/Style";
 
 const WritePost = (profileId) => {
 
@@ -42,12 +43,15 @@ const WritePost = (profileId) => {
     }
 
     return(
-        <View>
+        <View style={styles.writePost}>
             <Text>New Post</Text>
             <TextInput
                 placeholder="New post.."
                 onChangeText={setPostText}/>
-            <Button title="Post" onPress={() => post()} />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => post()}
+            ><Text style={styles.buttonText}>Post</Text></TouchableOpacity>
         </View>
     )
 }

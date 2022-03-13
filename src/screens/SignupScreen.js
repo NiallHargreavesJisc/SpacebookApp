@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, Button } from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-web';
-import LoginScreen from "./LogInScreen"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/Header";
 import styles from "../assets/styles/Style";
@@ -104,9 +103,11 @@ const SignupScreen = ({navigation}) => {
                 secureTextEntry
                 placeholder="Password"
                 onChangeText={setPassword}/>
-            <Button
+            <TouchableOpacity
+                style={styles.button}
                 title="Sign Up"
-                onPress={() => signUp()}/>
+                onPress={() => signUp()}
+            ><Text>Sign Up</Text></TouchableOpacity>
         </View>
     )
 }

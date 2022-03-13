@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, FlatList, Text, TextInput, View, ScrollView} from "react-native";
+import {FlatList, Text, TextInput, View, ScrollView, TouchableOpacity} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../assets/styles/Style";
 import Header from "../components/Header";
@@ -72,20 +72,20 @@ const SearchScreen = () => {
                 <TextInput
                     placeholder="Search..."
                     onChangeText={setSearchParam}/>
-                <Button
-                    title={"Search"}
+                <TouchableOpacity
                     style={styles.button}
-                    onPress={() => searchFriends()}/>
+                    onPress={() => searchFriends()}
+                ><Text>Search</Text></TouchableOpacity>
                 <FlatList
                     data={searchResults}
                     extraData={searchLoading}
                     renderItem={({item}) => (
                         <View>
                             <Text>{item.user_givenname} {item.user_familyname}</Text>
-                            <Button
-                                title="Add Friend"
+                            <TouchableOpacity
                                 onPress={() => sendFriendRequest(item.user_id)}
-                                style={styles.searchButton}/>
+                                style={styles.searchButton}
+                            ><Text>Add Friend</Text></TouchableOpacity>
                         </View>)}
                     keyExtractor={(item) => item.user_id.toString()}
                 />

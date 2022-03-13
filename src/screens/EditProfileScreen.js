@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import { TextInput } from 'react-native-web';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/Header";
@@ -115,9 +115,10 @@ const EditProfileScreen = () => {
                 secureTextEntry
                 placeholder="New Password"
                 onChangeText={setPassword}/>
-            <Button
+            <TouchableOpacity
                 title="Update Details"
-                onPress={() => updateDetails()}/>
+                onPress={() => updateDetails()}
+            >><Text>Update Details</Text></TouchableOpacity>
         </View>
     )
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../assets/styles/Style";
 import {Camera} from "expo-camera";
@@ -86,20 +86,25 @@ const CameraScreen = () => {
                     type={type}
                     ratio={'1:1'} />
             </View>
-            <Button
-                title="Flip Image"
+            <TouchableOpacity
+                style={styles.button}
                 onPress={() => {
                     setType(
                         type === Camera.Constants.Type.back
                             ? Camera.Constants.Type.front
                             : Camera.Constants.Type.back
                     );
-                }} />
-            <Button title="Take Picture" onPress={() => takePicture()} />
+                }} ><Text>Flip Image</Text></TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => takePicture()}
+                style={styles.button}
+            ><Text>Take Picture</Text></TouchableOpacity>
             {image &&
                 <View style={{flex:1}}>
                     <Image source={{uri: image}} style={{flex:0.8}} />
-                    <Button title={"Upload"} onPress={() => uploadPicture()} style={{flex:0.2, justifyContent: "flex-end"}}/>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => uploadPicture()} style={{flex:0.2, justifyContent: "flex-end"}}><Text>Upload</Text></TouchableOpacity>
                 </View>
             }
 
