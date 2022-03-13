@@ -35,15 +35,18 @@ const SettingsAndInfoScreen = () => {
     return (
         <View style={styles.container}>
             <Header />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Edit Profile")}><Text>Edit Profile</Text></TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate("Camera")}><Text>Take New Photo</Text></TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => logout()}><Text>Log Out</Text></TouchableOpacity>
+            <View style={styles.settingsButtonView}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("Edit Profile")}><Text style={styles.buttonText}>Edit Profile</Text></TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("Camera")}><Text style={styles.buttonText}>Take New Photo</Text></TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => logout()}><Text style={styles.buttonText}>Log Out</Text></TouchableOpacity>
+            </View>
+
         </View>
     )
 }
