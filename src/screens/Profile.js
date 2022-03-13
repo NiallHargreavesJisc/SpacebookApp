@@ -7,8 +7,8 @@ import Header from "../components/Header";
 import styles from "../assets/styles/Style";
 
 const Profile = ({route}) => {
-    const profileId  = route.params;
-    return(
+    const profileId = route.params;
+    return (
         <View style={styles.container}>
             <Header />
             <View style={styles.container}>
