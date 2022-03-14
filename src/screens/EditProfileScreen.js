@@ -69,31 +69,6 @@ const EditProfileScreen = () => {
 
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id');
-        // return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
-        //     method: 'PATCH',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-Authorization': authToken
-        //     },
-        //     body: JSON.stringify(updatedDetailsData)
-        // })
-        // .then((response) => {
-        //     if (response.status === 200) {
-        //         return response.json()
-        //     } else if (response.status === 401) {
-
-        //     } else {
-
-        //         throw 'Something went wrong';
-
-        //     }
-        // })
-        //     .then((responseJson) => {
-        //         console.log(responseJson)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
 
         return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
             method: 'PATCH',
