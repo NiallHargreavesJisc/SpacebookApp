@@ -112,6 +112,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         color: 'white',
         fontSize: 20
+    },
+    errorText: {
+        color: 'red'
     }
 });
 

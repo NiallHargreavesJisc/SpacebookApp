@@ -7,46 +7,84 @@ import Header from "../components/Header";
 
 const LoginScreen = ({navigation}) => {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+    let [emailValid, setEmailValid] = useState(false);
+    let [passwordValid, setPasswordValid] = useState(false);
+    let [invalidDetails, setInvalidDetails] = useState(false);
+
     const logIn = () => {
+
+        if(email.length == 0){
+            setEmailError("Email is required");
+        }
+        else if(email.length < 6){
+            setEmailError("Email should be minimum 6 characters");
+        }
+        else if(email.indexOf(' ') >= 0){
+            setEmailError('Email cannot contain spaces');
+        }
+        else{
+            setEmailError("")
+            setEmailValid(true);
+        }
+
+        if(password.length == 0){
+            setPasswordError("Password is required");
+        }
+        else if(password.length < 6){
+            setPasswordError("Password should be minimum 6 characters");
+        }
+        else if(password.indexOf(' ') >= 0){
+            setPasswordError('Password cannot contain spaces');
+        }
+        else{
+            setPasswordError("")
+            setPasswordValid(true);
+        }
 
         const loginData = {
             email: email,
             password: password
         }
-        console.log(JSON.stringify(loginData));
-        return fetch("http://localhost:3333/api/1.0.0/login",{
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loginData)
-        })
-        .then((response) => {
-            if (response.status === 200) {
-                return response.json()
 
-            } else if (response.status === 401) {
-                navigation.navigate("Login");
-            } else {
-                throw 'Something went wrong';
-            }
-        })
-            .then(async (responseJson) => {
-                console.log(responseJson);
-                await AsyncStorage.setItem('@user_id', responseJson.id);
-                await AsyncStorage.setItem('@session_token', responseJson.token);
-                await navigation.navigate("Main App");
+        if(emailValid == true && passwordValid == true) {
+            return fetch("http://localhost:3333/api/1.0.0/login",{
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
             })
-            .catch((error) => {
-                console.log(error);
-            });
+                .then((response) => {
+                    if (response.status === 200) {
+                        return response.json()
+                    } else if (response.status === 400) {
+                        setInvalidDetails(true)
+                    } else {
+                        throw 'Something went wrong';
+                    }
+                })
+                .then(async (responseJson) => {
+                    console.log(responseJson)
+                    if(responseJson){
+                        await AsyncStorage.setItem('@user_id', responseJson.id);
+                        await AsyncStorage.setItem('@session_token', responseJson.token);
+                        await navigation.navigate("Main App");
+                    }
+                    console.log(invalidDetails);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
     return(
-
 
         <View style={styles.container}>
             <Header />
@@ -54,11 +92,17 @@ const LoginScreen = ({navigation}) => {
             <TextInput
                 placeholder="Email Address"
                 onChangeText={setEmail}/>
+            {emailError.length > 0 &&
+            <Text style={styles.errorText}>{emailError}</Text>
+            }
             <Text>Password</Text>
             <TextInput
                 secureTextEntry
                 placeholder="Password"
                 onChangeText={setPassword}/>
+            {passwordError.length > 0 &&
+            <Text style={styles.errorText}>{passwordError}</Text>
+            }
             <View style={styles.loginButtonView}>
                 <TouchableOpacity
                     style={styles.button}
@@ -71,7 +115,9 @@ const LoginScreen = ({navigation}) => {
                     <Text style = {styles.buttonText}>No Account? Sign Up</Text>
                 </TouchableOpacity>
             </View>
-
+            {invalidDetails &&
+            <Text style={styles.errorText}>Please double check email address and password</Text>
+            }
         </View>
     )
 }
