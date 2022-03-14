@@ -1,6 +1,7 @@
 import {FlatList, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import styles from "../assets/styles/Style";
 
 
 const FriendRequests = () => {
@@ -10,7 +11,7 @@ const FriendRequests = () => {
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
+
         return fetch("http://localhost:3333/api/1.0.0/friendrequests", {
             method: 'GET',
             headers: {
@@ -67,26 +68,32 @@ const FriendRequests = () => {
     if (isLoading == false) {
         if (friendRequests.length == 0) {
             return (
-                <Text>You have no friend requests</Text>
+                <View style={styles.container}>
+                    <Text style={styles.friendsPageHeadings}>Friend Requests</Text>
+                    <Text>You have no friend requests</Text>
+                </View>
             )
         } else {
             return (
-                <FlatList
-                    data={friendRequests}
-                    renderItem={({item}) => (
-                        <View>
-                            <Text>{item.first_name} {item.last_name}</Text>
-                            <TouchableOpacity
-                                title="Accept"
-                                onPress={() => requestResponse("POST", item.user_id)}
-                            ><Text>Accept</Text></TouchableOpacity>
-                            <TouchableOpacity
-                                title="Reject"
-                                onPress={() => requestResponse("DELETE", item.user_id)}
-                            ><Text>Reject</Text></TouchableOpacity>
-                        </View>)}>
+                <View style={styles.container}>
+                    <Text style={styles.friendsPageHeadings}>Friend Requests</Text>
+                    <FlatList
+                        data={friendRequests}
+                        renderItem={({item}) => (
+                            <View>
+                                <Text>{item.first_name} {item.last_name}</Text>
+                                <TouchableOpacity
+                                    title="Accept"
+                                    onPress={() => requestResponse("POST", item.user_id)}
+                                ><Text>Accept</Text></TouchableOpacity>
+                                <TouchableOpacity
+                                    title="Reject"
+                                    onPress={() => requestResponse("DELETE", item.user_id)}
+                                ><Text>Reject</Text></TouchableOpacity>
+                            </View>)}
+                        keyExtractor={(item) => item.user_id.toString()} />
+                </View>
 
-                </FlatList>
             )
         }
 

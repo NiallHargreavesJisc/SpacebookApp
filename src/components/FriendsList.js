@@ -48,24 +48,30 @@ const FriendsList = () => {
     if (isLoading == false) {
         if (friends.length == 0) {
             return (
-                <Text>You have no friends</Text>
+                <View style={styles.container}>
+                    <Text style={styles.friendsPageHeadings}>Friends</Text>
+                    <Text>You have no friends</Text>
+                </View>
+
             )
         } else {
             return (
-                <FlatList
-                    data={friends}
-                    renderItem={({item}) => (
-                        <View>
-                            <Text>{item.user_givenname} {item.user_familyname}</Text>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => goToProfile(item.user_id)}
-                            ><Text>Visit Profile</Text></TouchableOpacity>
-                        </View>
-                    )}
-                    keyExtractor={(item) => item.user_id.toString()}>
+                <View style={styles.container}>
+                    <Text style={styles.friendsPageHeadings}>Friends</Text>
+                    <FlatList
+                        data={friends}
+                        renderItem={({item}) => (
+                            <View>
+                                <Text>{item.user_givenname} {item.user_familyname}</Text>
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => goToProfile(item.user_id)}
+                                ><Text style={styles.buttonText}>Visit Profile</Text></TouchableOpacity>
+                            </View>
+                        )}
+                        keyExtractor={(item) => item.user_id.toString()} />
+                </View>
 
-                </FlatList>
             )
         }
 

@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 5
     },
     friendsList: {
         flex: 1,
@@ -32,10 +31,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     searchButton: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
         backgroundColor: 'blue',
+        padding: 10,
+        borderRadius: 10,
+        marginHorizontal: 5,
+        margin: 5
     },
     loginButtonView: {
         flexDirection: "row",
@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
         aspectRatio: 1
     },
     header:{
-        flex: 0.075,
         backgroundColor: 'blue',
+        padding: 2
     },
     headerText: {
         color: 'white',
@@ -100,6 +100,19 @@ const styles = StyleSheet.create({
     writePost: {
         padding: 5,
     },
+    searchResults: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    textInput: {
+        padding: 5,
+        margin: 2
+    },
+    friendsPageHeadings: {
+        backgroundColor: 'blue',
+        color: 'white',
+        fontSize: 20
+    }
 });
 
 export default styles;

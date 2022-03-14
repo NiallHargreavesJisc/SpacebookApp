@@ -68,24 +68,25 @@ const SearchScreen = () => {
     return (
         <View style={styles.container}>
             <Header />
-            <ScrollView>
-                <TextInput
-                    placeholder="Search..."
-                    onChangeText={setSearchParam}/>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => searchFriends()}
-                ><Text>Search</Text></TouchableOpacity>
+            <TextInput style={styles.textInput}
+                placeholder="Search..."
+                onChangeText={setSearchParam}/>
+            <TouchableOpacity
+                style={styles.searchButton}
+                onPress={() => searchFriends()}
+            ><Text style={styles.buttonText}>Search</Text></TouchableOpacity>
+            <ScrollView style={styles.container}>
+
                 <FlatList
                     data={searchResults}
                     extraData={searchLoading}
                     renderItem={({item}) => (
-                        <View>
+                        <View style={styles.searchResults}>
                             <Text>{item.user_givenname} {item.user_familyname}</Text>
                             <TouchableOpacity
                                 onPress={() => sendFriendRequest(item.user_id)}
                                 style={styles.searchButton}
-                            ><Text>Add Friend</Text></TouchableOpacity>
+                            ><Text style={styles.buttonText}>Add Friend</Text></TouchableOpacity>
                         </View>)}
                     keyExtractor={(item) => item.user_id.toString()}
                 />
