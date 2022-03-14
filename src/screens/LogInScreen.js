@@ -21,16 +21,16 @@ const LoginScreen = ({navigation}) => {
             },
             body: JSON.stringify(loginData)
         })
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json()
+        .then((response) => {
+            if (response.status === 200) {
+                return response.json()
 
-                } else if (response.status === 401) {
-                    navigation.navigate("Login");
-                } else {
-                    throw 'Something went wrong';
-                }
-            })
+            } else if (response.status === 401) {
+                navigation.navigate("Login");
+            } else {
+                throw 'Something went wrong';
+            }
+        })
             .then(async (responseJson) => {
                 console.log(responseJson);
                 await AsyncStorage.setItem('@user_id', responseJson.id);

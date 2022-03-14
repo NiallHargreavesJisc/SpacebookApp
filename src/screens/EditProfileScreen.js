@@ -69,24 +69,59 @@ const EditProfileScreen = () => {
 
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id');
+        // return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
+        //     method: 'PATCH',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-Authorization': authToken
+        //     },
+        //     body: JSON.stringify(updatedDetailsData)
+        // })
+        // .then((response) => {
+        //     if (response.status === 200) {
+        //         return response.json()
+        //     } else if (response.status === 401) {
+
+        //     } else {
+
+        //         throw 'Something went wrong';
+
+        //     }
+        // })
+        //     .then((responseJson) => {
+        //         console.log(responseJson)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+
         return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
-                'X-Authorization': authToken,
-                'Access-Control-Allow-Origin': 'http://localhost:19006/',
-                'Access-Control-Allow-Credentials': true
-
+                'X-Authorization': authToken
             },
-            body: updatedDetailsData
+            body: JSON.stringify(updatedDetailsData)
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        .then((response) => {
+            if (response.status === 200) {
+                    return response
+                } else if (response.status === 401) {
+    
+                } else {
+                    throw 'Something went wrong';    
+                }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .then((responseJson) => {
+            console.log(responseJson)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
     }
 
     return(
@@ -118,7 +153,7 @@ const EditProfileScreen = () => {
             <TouchableOpacity
                 title="Update Details"
                 onPress={() => updateDetails()}
-            >><Text>Update Details</Text></TouchableOpacity>
+            ><Text>Update Details</Text></TouchableOpacity>
         </View>
     )
 }
