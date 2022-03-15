@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
         alignSelf: "flex-end"
     },
-    postButtons: {
+    buttonRow: {
         flexDirection: "row",
         justifyContent: "space-around",
         padding: 5,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         padding: 5,
         margin: 2
     },
-    friendsPageHeadings: {
+    pageHeadings: {
         backgroundColor: 'blue',
         color: 'white',
         fontSize: 20

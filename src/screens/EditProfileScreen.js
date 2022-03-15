@@ -102,33 +102,28 @@ const EditProfileScreen = () => {
     return(
         <View style={styles.container}>
             <Header />
-            <Text>Update User</Text>
+            <Text style={styles.pageHeadings}>Update User</Text>
             <Text>First Name</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="First Name"
                 onChangeText={setFirstName}/>
             <Text>Last Name</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="Last Name"
                 onChangeText={setLastName}/>
             <Text>Email</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="Email Address"
                 onChangeText={setEmail}/>
-            <Text>Old Password</Text>
-            <TextInput
-                secureTextEntry
-                placeholder="Old Password"
-                onChangeText={setOldPassword}/>
-            <Text>New Password</Text>
-            <TextInput
-                secureTextEntry
-                placeholder="New Password"
-                onChangeText={setPassword}/>
-            <TouchableOpacity
-                title="Update Details"
-                onPress={() => updateDetails()}
-            ><Text>Update Details</Text></TouchableOpacity>
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => updateDetails()}
+                ><Text style={styles.buttonText}>Update Details</Text></TouchableOpacity>
+            </View>
         </View>
     )
 }

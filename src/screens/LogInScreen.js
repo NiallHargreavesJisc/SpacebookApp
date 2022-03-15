@@ -90,6 +90,7 @@ const LoginScreen = ({navigation}) => {
             <Header />
             <Text>Email</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="Email Address"
                 onChangeText={setEmail}/>
             {emailError.length > 0 &&
@@ -97,6 +98,7 @@ const LoginScreen = ({navigation}) => {
             }
             <Text>Password</Text>
             <TextInput
+                style={styles.textInput}
                 secureTextEntry
                 placeholder="Password"
                 onChangeText={setPassword}/>

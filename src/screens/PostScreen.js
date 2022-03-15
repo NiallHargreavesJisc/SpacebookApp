@@ -79,20 +79,20 @@ const PostScreen = ({route}) => {
         return (
             <View style={styles.container}>
                 <Header/>
-                <Text>{post.text}</Text>
-                <Text>{post.numLikes}</Text>
-                <View style={styles.postButtons}>
+                <Text style={styles.postText}>{post.text}</Text>
+                <Text style={styles.postAuthor}>{post.author.first_name} {post.author.last_name} - {getDateOfPost(post.timestamp).toString()}</Text>
+                <Text>Likes: {post.numLikes}</Text>
+                <View style={styles.buttonRow}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => editPost(post)}><Text>Edit Post</Text></TouchableOpacity>
+                        onPress={() => editPost(post)}><Text style={styles.buttonText}>Edit Post</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => deletePost(post)}><Text>Delete Post</Text></TouchableOpacity>
+                        onPress={() => deletePost(post)}><Text style={styles.buttonText}>Delete Post</Text></TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => navigation.goBack()}><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.goBack()}><Text>Back</Text></TouchableOpacity>
-
             </View>
         )
     } else {

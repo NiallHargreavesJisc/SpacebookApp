@@ -86,28 +86,33 @@ const CameraScreen = () => {
                     type={type}
                     ratio={'1:1'} />
             </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                    setType(
-                        type === Camera.Constants.Type.back
-                            ? Camera.Constants.Type.front
-                            : Camera.Constants.Type.back
-                    );
-                }} ><Text>Flip Image</Text></TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => takePicture()}
-                style={styles.button}
-            ><Text>Take Picture</Text></TouchableOpacity>
+
+            <View>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        setType(
+                            type === Camera.Constants.Type.back
+                                ? Camera.Constants.Type.front
+                                : Camera.Constants.Type.back
+                        );
+                    }} ><Text style={styles.buttonText}>Flip Image</Text></TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => takePicture()}
+                    style={styles.button}
+                ><Text style={styles.buttonText}>Take Picture</Text></TouchableOpacity>
+            </View>
             {image &&
-                <View style={{flex:1}}>
+                <View style={styles.container}>
                     <Image source={{uri: image}} style={{flex:0.8}} />
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => uploadPicture()} style={{flex:0.2, justifyContent: "flex-end"}}><Text>Upload</Text></TouchableOpacity>
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => uploadPicture()} ><Text style={styles.buttonText}>Upload</Text></TouchableOpacity>
+                    </View>
+
                 </View>
             }
-
         </View>
     )
 

@@ -69,14 +69,14 @@ const FriendRequests = () => {
         if (friendRequests.length == 0) {
             return (
                 <View style={styles.container}>
-                    <Text style={styles.friendsPageHeadings}>Friend Requests</Text>
+                    <Text style={styles.pageHeadings}>Friend Requests</Text>
                     <Text>You have no friend requests</Text>
                 </View>
             )
         } else {
             return (
                 <View style={styles.container}>
-                    <Text style={styles.friendsPageHeadings}>Friend Requests</Text>
+                    <Text style={styles.pageHeadings}>Friend Requests</Text>
                     <FlatList
                         data={friendRequests}
                         renderItem={({item}) => (

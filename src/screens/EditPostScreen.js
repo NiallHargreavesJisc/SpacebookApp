@@ -88,11 +88,14 @@ const EditPostScreen = ({route}) => {
             <View style={styles.container}>
                 <Header />
                 <TextInput
+                    style={styles.textInput}
                     placeholder= {postText}
                     onChangeText={setUpdatedPostText}/>
-                <TouchableOpacity
-                    onPress={() => updatePost()}
-                    style={styles.button}><Text style={styles.buttonText}>Update Post</Text></TouchableOpacity>
+                <View style={styles.buttonRow}>
+                    <TouchableOpacity
+                        onPress={() => updatePost()}
+                        style={styles.button}><Text style={styles.buttonText}>Update Post</Text></TouchableOpacity>
+                </View>
             </View>
         )
     } else {

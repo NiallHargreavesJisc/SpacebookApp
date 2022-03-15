@@ -46,6 +46,8 @@ const WritePost = (profileId) => {
         <View style={styles.writePost}>
             <Text>New Post</Text>
             <TextInput
+                style={styles.textInput}
+                value={postText}
                 placeholder="New post.."
                 onChangeText={setPostText}/>
             <TouchableOpacity
