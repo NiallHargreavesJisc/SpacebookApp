@@ -28,12 +28,15 @@ const LoginScreen = ({navigation}) => {
         else if(email.indexOf(' ') >= 0){
             setEmailError('Email cannot contain spaces');
         }
+        else if(email.indexOf('@') === -1){
+            setEmailError('Email must contain an \'@\'');
+        }
         else{
             setEmailError("")
             setEmailValid(true);
         }
 
-        if(password.length == 0){
+        if(password.length === 0){
             setPasswordError("Password is required");
         }
         else if(password.length < 6){
@@ -52,7 +55,7 @@ const LoginScreen = ({navigation}) => {
             password: password
         }
 
-        if(emailValid == true && passwordValid == true) {
+        if(emailValid === true && passwordValid === true) {
             return fetch("http://localhost:3333/api/1.0.0/login",{
                 method: 'post',
                 headers: {
