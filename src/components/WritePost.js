@@ -3,9 +3,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useState} from "react";
 import styles from "../assets/styles/Style";
 
-const WritePost = (profileId) => {
+const WritePost = ({profileId, setIsLoading}) => {
 
-    const [postText, setPostText] = useState(null);
+    const [postText, setPostText] = useState('');
 
     const postData = {
         "text": postText
@@ -15,7 +15,7 @@ const WritePost = (profileId) => {
 
         const authToken = await AsyncStorage.getItem('@session_token');
         if(postText != null && postText != ''){
-            return fetch("http://localhost:3333/api/1.0.0/user/" + profileId.profileId + "/post", {
+            return fetch("http://localhost:3333/api/1.0.0/user/" + profileId + "/post", {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,6 +33,8 @@ const WritePost = (profileId) => {
                     }
                 })
                 .then((responseJson) => {
+                    setIsLoading(true)
+                    setPostText('')
                     console.log(responseJson);
                 })
                 .catch((error) => {

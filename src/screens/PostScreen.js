@@ -75,6 +75,14 @@ const PostScreen = ({route}) => {
             })
     }
 
+    const getDateOfPost = (timestamp) => {
+
+        const d = new Date(timestamp);
+        let date = d.getDate() + "-" + d.getUTCMonth()  + "-" + d.getFullYear();
+        return date;
+
+    }
+
     if(isLoading != true) {
         return (
             <View style={styles.container}>
