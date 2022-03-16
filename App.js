@@ -19,7 +19,7 @@ export const App = () => {
 
   return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={"Login"} >
           <Stack.Screen name={"Login"} component={LoginScreen} />
           <Stack.Screen name={"Main App"} component={MainAppScreen} />
           <Stack.Screen name={"Sign Up"} component={SignupScreen} />
