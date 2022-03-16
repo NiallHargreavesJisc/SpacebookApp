@@ -7,16 +7,14 @@ import Header from "../components/Header";
 const SearchScreen = () => {
 
     const [searchParam, setSearchParam] = useState(null);
-    const [searchResults, setSearchResults] = useState(null);
+    const [searchResults, setSearchResults] = useState([]);
+    const [resultsRemaining, setResultsRemaining] = useState(false);
     const [searchLoading, setSearchLoading] = useState(true);
-    let fetchUrl = "http://localhost:3333/api/1.0.0/search";
+    const [offset, setOffset] = useState(0);
+    let fetchUrl = `http://localhost:3333/api/1.0.0/search?limit=10`;
 
-    const searchFriends = async () => {
-        setSearchParam("")
+    const search = async (fetchUrl, concat) => {
         const authToken = await AsyncStorage.getItem('@session_token');
-        if(searchParam){
-            fetchUrl = fetchUrl + "?q=" + searchParam
-        }
         return fetch(fetchUrl, {
             method: 'GET',
             headers: {
@@ -32,12 +30,42 @@ const SearchScreen = () => {
             }
         })
             .then(async (responseJson) => {
-                setSearchResults(responseJson);
+                if(responseJson.length > 0) {
+                    setResultsRemaining(true)
+                } else {
+                    setResultsRemaining(false)
+                }
+
+                setSearchResults(concat ? [...searchResults, ...responseJson] : responseJson);
                 setSearchLoading(false);
             })
             .catch((error) => {
                 console.log(error);
             })
+    }
+
+    const initialSearch = async () => {
+
+        await setSearchResults([])
+
+        setOffset(0);
+        if(searchParam){
+            fetchUrl = `${fetchUrl}&q=${searchParam}`
+        }
+
+        await search(fetchUrl, false);
+    }
+
+    const showMore = async () => {
+
+        fetchUrl = `${fetchUrl}&offset=${offset+10}`
+        setOffset(offset+10)
+        console.log(offset)
+        console.log(fetchUrl)
+        if(searchParam){
+            fetchUrl = `${fetchUrl}&q=${searchParam}`
+        }
+        await search(fetchUrl, true);
     }
 
     const sendFriendRequest = async (userId) => {
@@ -65,6 +93,8 @@ const SearchScreen = () => {
             })
     }
 
+
+
     return (
         <View style={styles.container}>
             <Header />
@@ -73,7 +103,7 @@ const SearchScreen = () => {
                 onChangeText={setSearchParam}/>
             <TouchableOpacity
                 style={styles.searchButton}
-                onPress={() => searchFriends()}
+                onPress={() => initialSearch()}
             ><Text style={styles.buttonText}>Search</Text></TouchableOpacity>
             <ScrollView style={styles.container}>
 
@@ -82,7 +112,7 @@ const SearchScreen = () => {
                     extraData={searchLoading}
                     renderItem={({item}) => (
                         <View style={styles.searchResults}>
-                            <Text>{item.user_givenname} {item.user_familyname}</Text>
+                            <Text>{item.user_givenname} {item.user_familyname} {item.user_id}</Text>
                             <TouchableOpacity
                                 onPress={() => sendFriendRequest(item.user_id)}
                                 style={styles.searchButton}
@@ -91,6 +121,15 @@ const SearchScreen = () => {
                     keyExtractor={(item) => item.user_id.toString()}
                 />
             </ScrollView>
+            {resultsRemaining &&
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={styles.searchButton}
+                    onPress={() => showMore()}
+                ><Text style={styles.buttonText}>Show more</Text></TouchableOpacity>
+            </View>
+            }
+
         </View>
 
     )
