@@ -2,13 +2,10 @@ import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WritePost from './WritePost';
 import PostList from './PostList';
-import {Text} from "react-native";
-import styles from "../assets/styles/Style";
 
 const Posts = ({profileId}) => {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [buttonError, setButtonError] = useState('');
 
     const [posts, setPosts] = useState([]);
 
@@ -40,7 +37,7 @@ const Posts = ({profileId}) => {
                     console.log(error);
                 })
         }
-    },[isLoading, buttonError])
+    },[isLoading])
 
     return (
         <>
