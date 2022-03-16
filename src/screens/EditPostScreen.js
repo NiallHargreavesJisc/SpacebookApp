@@ -64,7 +64,7 @@ const EditPostScreen = ({route}) => {
         })
         .then((response) => {
             if (response.status === 200) {
-                    navigation.goBack()
+                    navigation.navigate("PostScreen", {profileId: profileId, postId: postId});
                 } else if (response.status === 401) {
     
                 } else {
