@@ -4,10 +4,19 @@ import { TextInput } from 'react-native-web';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../components/Header";
 import styles from "../assets/styles/Style";
+import {useNavigation} from "@react-navigation/native";
 
 const EditProfileScreen = () => {
 
+    const navigation = useNavigation()
 
+    const [currentFirstName, setCurrentFirstName] = useState(null)
+    const [currentLastName, setCurrentLastName] = useState(null)
+    const [currentEmail, setCurrentEmail] = useState(null)
+
+    let [firstName, setFirstName] = useState(currentFirstName);
+    let [lastName, setLastName] = useState(currentLastName);
+    let [email, setEmail] = useState(currentEmail);
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
@@ -37,15 +46,7 @@ const EditProfileScreen = () => {
             })
     },[])
 
-    const [currentFirstName, setCurrentFirstName] = useState(null)
-    const [currentLastName, setCurrentLastName] = useState(null)
-    const [currentEmail, setCurrentEmail] = useState(null)
 
-    let [firstName, setFirstName] = useState(currentFirstName);
-    let [lastName, setLastName] = useState(currentLastName);
-    let [email, setEmail] = useState(currentEmail);
-    let [password, setPassword] = useState("");
-    let [oldPassword, setOldPassword] = useState("");
 
 
 
@@ -124,6 +125,13 @@ const EditProfileScreen = () => {
                     onPress={() => updateDetails()}
                 ><Text style={styles.buttonText}>Update Details</Text></TouchableOpacity>
             </View>
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.goBack()}
+                ><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
+            </View>
+
         </View>
     )
 }

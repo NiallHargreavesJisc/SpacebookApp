@@ -101,18 +101,24 @@ const CameraScreen = () => {
                     onPress={() => takePicture()}
                     style={styles.button}
                 ><Text style={styles.buttonText}>Take Picture</Text></TouchableOpacity>
+
             </View>
             {image &&
                 <View style={styles.container}>
-                    <Image source={{uri: image}} style={{flex:0.8}} />
+                    <Image source={{uri: image}} style={{flex:1}} />
                     <View style={styles.buttonRow}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => uploadPicture()} ><Text style={styles.buttonText}>Upload</Text></TouchableOpacity>
                     </View>
-
                 </View>
             }
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.goBack()}
+                ><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
+            </View>
         </View>
     )
 
