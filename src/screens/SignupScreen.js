@@ -150,6 +150,7 @@ const SignupScreen = ({navigation}) => {
             <Header />
             <Text>First Name</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="First Name"
                 onChangeText={setFirstName}/>
             {firstNameError.length > 0 &&
@@ -157,6 +158,7 @@ const SignupScreen = ({navigation}) => {
             }
             <Text>Last Name</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="Last Name"
                 onChangeText={setLastName}/>
             {lastNameError.length > 0 &&
@@ -164,6 +166,7 @@ const SignupScreen = ({navigation}) => {
             }
             <Text>Email</Text>
             <TextInput
+                style={styles.textInput}
                 placeholder="Email Address"
                 onChangeText={setEmail}/>
             {emailError.length > 0 &&
@@ -171,17 +174,20 @@ const SignupScreen = ({navigation}) => {
             }
             <Text>Password</Text>
             <TextInput
+                style={styles.textInput}
                 secureTextEntry
                 placeholder="Password"
                 onChangeText={setPassword}/>
             {passwordError.length > 0 &&
             <Text style={styles.errorText}>{passwordError}</Text>
             }
-            <TouchableOpacity
-                style={styles.button}
-                title="Sign Up"
-                onPress={() => signUp()}
-            ><Text>Sign Up</Text></TouchableOpacity>
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={styles.button}
+                    title="Sign Up"
+                    onPress={() => signUp()}
+                ><Text style={styles.buttonText}>Sign Up</Text></TouchableOpacity>
+            </View>
         </View>
     )
 }
