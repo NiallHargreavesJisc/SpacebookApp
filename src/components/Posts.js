@@ -3,17 +3,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import WritePost from './WritePost';
 import PostList from './PostList';
 
-const Posts = ({profileId}) => {
+const Posts = ({profileId, refreshPage}) => {
 
     const [isLoading, setIsLoading] = useState(true);
 
     const [posts, setPosts] = useState([]);
 
     useEffect(async () => {
-        console.log("LOADING POSTS");
-        if(isLoading){
+        if(isLoading || refreshPage){
             const authToken = await AsyncStorage.getItem('@session_token');
-            console.log("http://localhost:3333/api/1.0.0/user/" + profileId + "/post");
             return fetch("http://localhost:3333/api/1.0.0/user/" + profileId + "/post", {
                 method: 'GET',
                 headers: {
@@ -37,7 +35,7 @@ const Posts = ({profileId}) => {
                     console.log(error);
                 })
         }
-    },[isLoading])
+    },[isLoading, refreshPage])
 
     return (
         <>

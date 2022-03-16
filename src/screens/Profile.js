@@ -10,24 +10,27 @@ import {useNavigation} from "@react-navigation/native";
 const Profile = ({route}) => {
 
     const navigation = useNavigation();
-    const profileId = route.params;
+    const {params: {profileId, refreshPage}} = route;
     const [isOwnProfile, setIsOwnProfile] = useState(true)
+
 
     useEffect(async () => {
         const userId = await AsyncStorage.getItem('@user_id');
-        console.log(userId);
-        console.log(profileId);
-        if(userId !== profileId.profileId){
+        console.log("User: " +userId);
+        console.log("Profile: " +profileId);
+        console.log("IsownProfile: " + isOwnProfile);
+        console.log("RefreshPage: " + refreshPage);
+        if(userId !== profileId){
             setIsOwnProfile(false)
         }
-    })
+    }, [])
 
     return (
         <View style={styles.container}>
             <Header />
             <View style={styles.container}>
-                <ProfileTopper profileId={profileId.profileId} />
-                <Posts profileId={profileId.profileId} />
+                <ProfileTopper profileId={profileId} />
+                <Posts profileId={profileId} refreshPage={refreshPage}/>
                 {!isOwnProfile && <View style={styles.buttonRow}><TouchableOpacity
                     style={styles.button}
                     onPress={() => navigation.goBack()}

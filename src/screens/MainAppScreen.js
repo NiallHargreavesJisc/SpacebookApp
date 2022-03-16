@@ -34,7 +34,7 @@ const MainAppScreen = ({navigation}) => {
                 screenOptions={{
                     headerShown: false
                 }}>
-                <Tab.Screen name="Profile" component={Profile} initialParams={{ profileId: profileId }} />
+                <Tab.Screen name="Profile" component={Profile} initialParams={{ profileId: profileId, refreshPage: false }} />
                 <Tab.Screen name="Search" component={SearchScreen} />
                 <Tab.Screen name="Friends" component={FriendsScreen} />
                 <Tab.Screen name="Settings" component={SettingsAndInfoScreen} />

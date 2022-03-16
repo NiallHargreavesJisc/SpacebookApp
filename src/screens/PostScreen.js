@@ -99,7 +99,7 @@ const PostScreen = ({route}) => {
                         onPress={() => deletePost(post)}><Text style={styles.buttonText}>Delete Post</Text></TouchableOpacity>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.goBack()}><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
+                        onPress={() => navigation.navigate("Profile", {profileId: profileId, refreshPage: true})}><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
                 </View>
             </View>
         )
