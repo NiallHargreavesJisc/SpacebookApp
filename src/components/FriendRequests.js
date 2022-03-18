@@ -27,7 +27,6 @@ const FriendRequests = () => {
             }
         })
             .then(async (responseJson) => {
-                console.log(responseJson);
                 await setFriendRequests(responseJson);
                 await setIsLoading(false);
             })

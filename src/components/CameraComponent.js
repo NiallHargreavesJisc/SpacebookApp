@@ -47,11 +47,8 @@ const CameraScreen = () => {
     const uploadPicture = async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id');
-        console.log(image)
         let res = await fetch(imageData.base64);
         let blob = await res.blob();
-        console.log("RES:",res);
-        console.log("Blob",blob);
 
         return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/photo", {
             method: 'post',

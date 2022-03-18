@@ -13,7 +13,6 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
     const likePost = async (postId) => {
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id')
-        console.log("Auth Token", authToken);
 
         if(userId === profileId){
             setButtonError("You cannot like your own post.")
@@ -25,7 +24,6 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
                     'X-Authorization': authToken
                 }
             }).then((response) => {
-                console.log("RESPONSE", response);
                 if (response.status === 200) {
                     setIsLoading(true)
                 } else if (response.status === 401) {
@@ -47,7 +45,6 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
     const unlikePost = async (postId) => {
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id')
-        console.log("AUTH TOKEN", authToken);
         if(userId === profileId){
             setButtonError("You cannot unlike your own post.")
             setIsLoading(true)
@@ -58,7 +55,6 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
                     'X-Authorization': authToken
                 }
             }).then((response) => {
-                console.log("RESPONSE ", response);
                 if (response.status === 200) {
                     setIsLoading(true)
                 } else if (response.status === 401) {
@@ -79,8 +75,6 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
 
     const editPost = async (author, profileId, postId) => {
         const userId = await AsyncStorage.getItem('@user_id')
-        //both user id and profile id are printing as 12
-        console.log("User ID = " + userId + " ProfileId = " + profileId)
         if (userId != author) {
             setButtonError("You can only edit/delete posts you are the author of.")
             setIsLoading(true)

@@ -54,7 +54,6 @@ const ProfileTopper = (profileId) => {
                 }
             })
             .then((responseJson) => {
-                console.log(responseJson);
                 setFirstName(responseJson.first_name);
                 setLastName(responseJson.last_name);
                 setFriends(responseJson.friend_count);

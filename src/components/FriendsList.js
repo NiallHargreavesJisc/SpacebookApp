@@ -30,7 +30,6 @@ const FriendsList = () => {
             }
         })
             .then(async (responseJson) => {
-                console.log(responseJson);
                 await setFriends(responseJson);
                 await setIsLoading(false);
             })
@@ -40,9 +39,7 @@ const FriendsList = () => {
     },[])
 
     const goToProfile = (userId) => {
-        console.log("navigating")
         navigation.navigate("Friends Profile", {profileId: userId} );
-        console.log("navigated")
     }
 
     if (isLoading == false) {

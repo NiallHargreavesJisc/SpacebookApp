@@ -35,7 +35,6 @@ const WritePost = ({profileId, setIsLoading}) => {
                 .then((responseJson) => {
                     setIsLoading(true)
                     setPostText('')
-                    console.log(responseJson);
                 })
                 .catch((error) => {
                     console.log(error);

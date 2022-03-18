@@ -27,7 +27,6 @@ const Posts = ({profileId, refreshPage}) => {
                 }
             })
                 .then(async (responseJson) => {
-                    console.log(responseJson);
                     await setPosts(responseJson);
                     await setIsLoading(false);
                 })
