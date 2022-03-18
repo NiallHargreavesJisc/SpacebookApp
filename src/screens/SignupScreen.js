@@ -113,10 +113,9 @@ function SignupScreen({ navigation }) {
           if (response.status === 201) {
             return response.json();
           } if (response.status === 400) {
-            return setErrorMessage("Please try again");
-          } else {
-            throw 'Something went wrong';
+            return setErrorMessage('Please try again');
           }
+          throw 'Something went wrong';
         })
         .then((responseJson) => {
           console.log(responseJson);
