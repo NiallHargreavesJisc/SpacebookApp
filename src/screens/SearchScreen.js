@@ -111,13 +111,14 @@ const SearchScreen = () => {
                     data={searchResults}
                     extraData={searchLoading}
                     renderItem={({item}) => (
+                        item.user_id != userId ?
                         <View style={styles.searchResults}>
-                            <Text>{item.user_givenname} {item.user_familyname} {item.user_id}</Text>
+                            <Text>{item.user_givenname} {item.user_familyname}</Text>
                             <TouchableOpacity
                                 onPress={() => sendFriendRequest(item.user_id)}
                                 style={styles.searchButton}
                             ><Text style={styles.buttonText}>Add Friend</Text></TouchableOpacity>
-                        </View>)}
+                        </View> : null)}
                     keyExtractor={(item) => item.user_id.toString()}
                 />
             </ScrollView>
