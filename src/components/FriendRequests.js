@@ -4,10 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../assets/styles/Style";
 
 
-const FriendRequests = () => {
+const FriendRequests = ({setIsLoading, isLoading}) => {
 
     const [friendRequests, setFriendRequests] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
@@ -33,7 +33,7 @@ const FriendRequests = () => {
             .catch((error) => {
                 console.log(error);
             })
-    },[])
+    },[isLoading])
 
     const requestResponse = async (method, userId) => {
         let authToken = await AsyncStorage.getItem('@session_token');
@@ -45,14 +45,15 @@ const FriendRequests = () => {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    if (method == "POST"){
+                    setIsLoading(true);
+                    if (method === "POST"){
                         console.log("Request Accepted")
                     } else {
                         console.log("Request Rejected")
                     }
 
                 } else if (response.status === 401) {
-                    console.log("Post Could not be deleted")
+
                 } else {
                     throw 'Something went wrong';
                 }
@@ -64,7 +65,7 @@ const FriendRequests = () => {
             })
     }
 
-    if (isLoading == false) {
+    if (isLoading === false) {
         if (friendRequests.length < 1) {
             return (
                 <View style={styles.container}>
@@ -85,11 +86,11 @@ const FriendRequests = () => {
                                 <TouchableOpacity
                                     style={styles.button}
                                     onPress={() => requestResponse("POST", item.user_id)}
-                                ><Text style={styles.button}>Accept</Text></TouchableOpacity>
+                                ><Text style={styles.buttonText}>Accept</Text></TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.button}
                                     onPress={() => requestResponse("DELETE", item.user_id)}
-                                ><Text style={styles.button}>Reject</Text></TouchableOpacity>
+                                ><Text style={styles.buttonText}>Reject</Text></TouchableOpacity>
                                 </View>
                             </View>)}
                         keyExtractor={(item) => item.user_id.toString()} />

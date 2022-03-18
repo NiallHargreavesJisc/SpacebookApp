@@ -5,44 +5,19 @@ import {useNavigation} from "@react-navigation/native";
 import styles from "../assets/styles/Style";
 
 
-const FriendsList = () => {
+const FriendsList = ({isLoading, friends}) => {
 
-    const [friends, setFriends] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
 
     const navigation = useNavigation();
 
-    useEffect(async () => {
-        const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId + "/friends", {
-            method: 'GET',
-            headers: {
-                'X-Authorization': authToken
-            }
-        }).then((response) => {
-            if (response.status === 200) {
-                return response.json()
-            } else if (response.status === 401) {
-                throw '401 response'
-            } else {
-                throw 'Something went wrong';
-            }
-        })
-            .then(async (responseJson) => {
-                await setFriends(responseJson);
-                await setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    },[])
+
 
     const goToProfile = (userId) => {
         navigation.navigate("Friends Profile", {profileId: userId} );
     }
 
     if (isLoading == false) {
+        console.log(friends);
         if (friends.length == 0) {
             return (
                 <View style={styles.container}>
