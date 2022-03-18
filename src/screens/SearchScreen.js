@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList, Text, TextInput, View, ScrollView, TouchableOpacity,
 } from 'react-native';
@@ -14,11 +14,15 @@ function SearchScreen() {
   const [searchLoading, setSearchLoading] = useState(true);
   const [offset, setOffset] = useState(0);
   const [userId, setUserId] = useState(0);
+  const [confirmation, setConfirmation] = useState('');
   let fetchUrl = 'http://localhost:3333/api/1.0.0/search?limit=10';
+
+  useEffect(async () => {
+    setUserId(await AsyncStorage.getItem('@user_id'));
+  }, [userId]);
 
   const search = async (concat) => {
     const authToken = await AsyncStorage.getItem('@session_token');
-    setUserId(await AsyncStorage.getItem('@user_id'));
     return fetch(fetchUrl, {
       method: 'GET',
       headers: {
@@ -39,7 +43,6 @@ function SearchScreen() {
         } else {
           setResultsRemaining(false);
         }
-
         setSearchResults(concat ? [...searchResults, ...responseJson] : responseJson);
         setSearchLoading(false);
       })
@@ -68,24 +71,23 @@ function SearchScreen() {
     await search(fetchUrl, true);
   };
 
-  const sendFriendRequest = async () => {
+  const sendFriendRequest = async (id) => {
+    setConfirmation('');
     const authToken = await AsyncStorage.getItem('@session_token');
-    return fetch(`http://localhost:3333/api/1.0.0/user/${userId}/friends/`, {
+    return fetch(`http://localhost:3333/api/1.0.0/user/${id}/friends/`, {
       method: 'POST',
       headers: {
         'X-Authorization': authToken,
       },
     }).then((response) => {
       if (response.status === 201) {
-        return response.json();
+        return setConfirmation('Request Sent');
       } if (response.status === 403) {
-        setSearchError('You are already friends/have a pending request with this user.');
-      } else {
-        throw 'Something went wrong';
+        return setSearchError('You are already friends/have a pending request with this user.');
       }
+      throw 'Something went wrong';
     })
-      .then(async (responseJson) => {
-        setSearchResults(responseJson);
+      .then(() => {
         setSearchLoading(false);
       })
       .catch((error) => {
@@ -109,13 +111,15 @@ function SearchScreen() {
       </TouchableOpacity>
       {searchError.length > 0
                 && <Text style={styles.errorText}>{searchError}</Text>}
+      {confirmation.length > 0
+            && <Text style={styles.confirmationText}>Request Sent</Text>}
       <ScrollView style={styles.container}>
 
         <FlatList
           data={searchResults}
           extraData={searchLoading}
           renderItem={({ item }) => (
-            item.user_id !== userId
+            item.user_id != userId
               ? (
                 <View style={styles.searchResults}>
                   <Text>

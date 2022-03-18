@@ -35,8 +35,8 @@ function PostList({
           throw 'Something went wrong';
         }
       }).catch((error) => {
-          console.log(error);
-        });
+        console.log(error);
+      });
     }
   };
 
@@ -107,6 +107,7 @@ function PostList({
               </Text>
               <Text>
                 Likes:
+                {' '}
                 {item.numLikes}
               </Text>
               <View style={styles.buttonRow}>

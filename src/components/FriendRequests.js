@@ -49,9 +49,9 @@ function FriendRequests({ setIsLoading, isLoading }) {
           if (method === 'POST') {
             setConfirmation('Request Accepted');
           } else {
-              setConfirmation('Request Rejected');
+            setConfirmation('Request Rejected');
           }
-        }  else {
+        } else {
           throw 'Something went wrong';
         }
       }).then()
@@ -65,7 +65,7 @@ function FriendRequests({ setIsLoading, isLoading }) {
       return (
         <View style={styles.container}>
           <Text style={styles.pageHeadings}>Friend Requests</Text>
-            {confirmation && <Text style={styles.confirmationText}>{confirmation}</Text>}
+          {confirmation.length > 0 && <Text style={styles.confirmationText}>{confirmation}</Text>}
           <Text>You have no friend requests</Text>
         </View>
       );

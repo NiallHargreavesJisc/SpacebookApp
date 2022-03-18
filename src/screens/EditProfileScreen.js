@@ -53,10 +53,10 @@ function EditProfileScreen() {
     if (firstName !== currentFirstName && firstName !== '') {
       updatedDetailsData.first_name = firstName;
     }
-    if (lastName !== currentLastName &&  lastName !== '') {
+    if (lastName !== currentLastName && lastName !== '') {
       updatedDetailsData.last_name = lastName;
     }
-    if (email !== currentEmail &&  email !== '') {
+    if (email !== currentEmail && email !== '') {
       updatedDetailsData.email = email;
     }
 

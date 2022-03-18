@@ -10,6 +10,8 @@ function SignupScreen({ navigation }) {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState('');
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -36,7 +38,7 @@ function SignupScreen({ navigation }) {
       .then((response) => {
         if (response.status === 200) {
           return response.json();
-        } if (response.status === 401) {
+        } if (response.status === 400) {
           navigation.navigate('Login');
         } else {
           throw 'Something went wrong';
@@ -111,7 +113,7 @@ function SignupScreen({ navigation }) {
           if (response.status === 201) {
             return response.json();
           } if (response.status === 400) {
-
+            return setErrorMessage("Please try again");
           } else {
             throw 'Something went wrong';
           }
@@ -130,6 +132,7 @@ function SignupScreen({ navigation }) {
     <View style={styles.container}>
       <Header />
       <Text>First Name</Text>
+      {errorMessage.length > 0 && <Text style={styles.errorText}>{errorMessage}</Text> }
       <TextInput
         style={styles.textInput}
         placeholder="First Name"

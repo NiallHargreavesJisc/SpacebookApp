@@ -75,6 +75,7 @@ function ProfileTopper(profileId) {
         </Text>
         <Text>
           Friends:
+          {' '}
           {friends}
         </Text>
       </View>
