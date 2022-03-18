@@ -1,139 +1,133 @@
-import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-web';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Header from "../components/Header";
-import styles from "../assets/styles/Style";
-import {useNavigation} from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import Header from '../components/Header';
+import styles from '../assets/styles/Style';
 
-const EditProfileScreen = () => {
+function EditProfileScreen() {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation()
+  const [currentFirstName, setCurrentFirstName] = useState(null);
+  const [currentLastName, setCurrentLastName] = useState(null);
+  const [currentEmail, setCurrentEmail] = useState(null);
 
-    const [currentFirstName, setCurrentFirstName] = useState(null)
-    const [currentLastName, setCurrentLastName] = useState(null)
-    const [currentEmail, setCurrentEmail] = useState(null)
+  const [firstName, setFirstName] = useState(currentFirstName);
+  const [lastName, setLastName] = useState(currentLastName);
+  const [email, setEmail] = useState(currentEmail);
 
-    let [firstName, setFirstName] = useState(currentFirstName);
-    let [lastName, setLastName] = useState(currentLastName);
-    let [email, setEmail] = useState(currentEmail);
+  useEffect(async () => {
+    const authToken = await AsyncStorage.getItem('@session_token');
+    const userId = await AsyncStorage.getItem('@user_id');
+    return fetch(`http://localhost:3333/api/1.0.0/user/${userId}`, {
+      headers: {
+        'X-Authorization': authToken,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } if (response.status === 401) {
 
-    useEffect(async () => {
-        const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
-            headers: {
-                'X-Authorization': authToken
-            }
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json()
-                } else if (response.status === 401) {
-
-                } else {
-                    throw 'Something went wrong';
-                }
-            })
-            .then((responseJson) => {
-                console.log(responseJson);
-                setCurrentFirstName(responseJson.first_name);
-                setCurrentLastName(responseJson.last_name);
-                setCurrentEmail(responseJson.email)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    },[])
-
-
-
-
-
-    const updateDetails = async () => {
-
-        console.log("editing details")
-
-        const updatedDetailsData = {};
-
-        if (firstName != currentFirstName && firstName != null&& firstName != '') {
-            updatedDetailsData['first_name'] = firstName;
+        } else {
+          throw 'Something went wrong';
         }
-        if (lastName != currentLastName && lastName != null && lastName != '') {
-            updatedDetailsData['last_name'] = lastName;
-        }
-        if (email != currentEmail && email != null && email != '') {
-            updatedDetailsData['email'] = email;
-        }
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+        setCurrentFirstName(responseJson.first_name);
+        setCurrentLastName(responseJson.last_name);
+        setCurrentEmail(responseJson.email);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-        console.log(JSON.stringify(updatedDetailsData));
+  const updateDetails = async () => {
+    console.log('editing details');
 
-        const authToken = await AsyncStorage.getItem('@session_token');
-        const userId = await AsyncStorage.getItem('@user_id');
+    const updatedDetailsData = {};
 
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userId, {
-            method: 'PATCH',
-            headers: {
-                'content-type': 'application/json',
-                'X-Authorization': authToken
-            },
-            body: JSON.stringify(updatedDetailsData)
-        })
-        .then((response) => {
-            if (response.status === 200) {
-                    return response
-                } else if (response.status === 401) {
-    
-                } else {
-                    throw 'Something went wrong';    
-                }
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        .then((responseJson) => {
-            console.log(responseJson)
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
+    if (firstName !== currentFirstName && firstName !== '') {
+      updatedDetailsData.first_name = firstName;
+    }
+    if (lastName !== currentLastName &&  lastName !== '') {
+      updatedDetailsData.last_name = lastName;
+    }
+    if (email !== currentEmail &&  email !== '') {
+      updatedDetailsData.email = email;
     }
 
-    return(
-        <View style={styles.container}>
-            <Header />
-            <Text style={styles.pageHeadings}>Update User</Text>
-            <Text>First Name</Text>
-            <TextInput
-                style={styles.textInput}
-                placeholder="First Name"
-                onChangeText={setFirstName}/>
-            <Text>Last Name</Text>
-            <TextInput
-                style={styles.textInput}
-                placeholder="Last Name"
-                onChangeText={setLastName}/>
-            <Text>Email</Text>
-            <TextInput
-                style={styles.textInput}
-                placeholder="Email Address"
-                onChangeText={setEmail}/>
-            <View style={styles.buttonRow}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => updateDetails()}
-                ><Text style={styles.buttonText}>Update Details</Text></TouchableOpacity>
-            </View>
-            <View style={styles.buttonRow}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.goBack()}
-                ><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
-            </View>
+    console.log(JSON.stringify(updatedDetailsData));
 
-        </View>
-    )
+    const authToken = await AsyncStorage.getItem('@session_token');
+    const userId = await AsyncStorage.getItem('@user_id');
+
+    return fetch(`http://localhost:3333/api/1.0.0/user/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'X-Authorization': authToken,
+      },
+      body: JSON.stringify(updatedDetailsData),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response;
+        } if (response.status === 401) {
+
+        } else {
+          throw 'Something went wrong';
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <View style={styles.container}>
+      <Header />
+      <Text style={styles.pageHeadings}>Update User</Text>
+      <Text>First Name</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="First Name"
+        onChangeText={setFirstName}
+      />
+      <Text>Last Name</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Last Name"
+        onChangeText={setLastName}
+      />
+      <Text>Email</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Email Address"
+        onChangeText={setEmail}
+      />
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => updateDetails()}
+        >
+          <Text style={styles.buttonText}>Update Details</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.buttonText}>Back</Text>
+        </TouchableOpacity>
+      </View>
+
+    </View>
+  );
 }
 
-export default EditProfileScreen
+export default EditProfileScreen;
