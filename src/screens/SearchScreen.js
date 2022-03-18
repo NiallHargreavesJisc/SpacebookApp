@@ -11,10 +11,12 @@ const SearchScreen = () => {
     const [resultsRemaining, setResultsRemaining] = useState(false);
     const [searchLoading, setSearchLoading] = useState(true);
     const [offset, setOffset] = useState(0);
+    const [userId, setUserId] = useState(0)
     let fetchUrl = `http://localhost:3333/api/1.0.0/search?limit=10`;
 
     const search = async (fetchUrl, concat) => {
         const authToken = await AsyncStorage.getItem('@session_token');
+        setUserId(await AsyncStorage.getItem('@user_id'))
         return fetch(fetchUrl, {
             method: 'GET',
             headers: {
