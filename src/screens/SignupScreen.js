@@ -48,7 +48,7 @@ function SignupScreen({ navigation }) {
         console.log(responseJson);
         await AsyncStorage.setItem('@user_id', responseJson.id);
         await AsyncStorage.setItem('@session_token', responseJson.token);
-        navigation.navigate('Main App');
+        navigation.navigate('MainApp');
       })
       .catch((error) => {
         console.log(error);

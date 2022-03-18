@@ -9,9 +9,9 @@ import styles from '../assets/styles/Style';
 function EditProfileScreen() {
   const navigation = useNavigation();
 
-  const [currentFirstName, setCurrentFirstName] = useState(null);
-  const [currentLastName, setCurrentLastName] = useState(null);
-  const [currentEmail, setCurrentEmail] = useState(null);
+  const [currentFirstName, setCurrentFirstName] = useState('');
+  const [currentLastName, setCurrentLastName] = useState('');
+  const [currentEmail, setCurrentEmail] = useState('');
 
   const [firstName, setFirstName] = useState(currentFirstName);
   const [lastName, setLastName] = useState(currentLastName);
@@ -75,6 +75,7 @@ function EditProfileScreen() {
     })
       .then((response) => {
         if (response.status === 200) {
+          navigation.navigate('Profile', { profileId: userId });
           return response;
         } if (response.status === 401) {
 

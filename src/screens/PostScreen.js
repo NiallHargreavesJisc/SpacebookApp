@@ -1,5 +1,5 @@
 import {
-  Button, Text, TouchableOpacity, View,
+  Text, TouchableOpacity, View,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,13 +41,13 @@ function PostScreen({ route }) {
       });
   }, [profileId]);
 
-  const editPost = () => {
-    navigation.navigate('Edit PostScreen', { post });
+  const editPost = (post) => {
+    navigation.navigate('EditPostScreen', { post });
   };
 
-  const deletePost = async () => {
+  const deletePost = async (post) => {
     const authToken = await AsyncStorage.getItem('@session_token');
-    return fetch(`http://localhost:3333/api/1.0.0/user/${post.author.user_id}/post/${post.post_id}`, {
+    return fetch(`http://localhost:3333/api/1.0.0/user/${profileId}/post/${postId}`, {
       method: 'delete',
       headers: {
         'X-Authorization': authToken,
@@ -55,9 +55,9 @@ function PostScreen({ route }) {
     })
       .then((response) => {
         if (response.status === 200) {
-          navigation.goBack();
+          navigation.navigate('Profile', { profileId: post.author.user_id });
         } else if (response.status === 401) {
-          console.log('PostScreen Could not be deleted');
+          console.log('Post Could not be deleted');
         } else {
           throw 'Something went wrong';
         }
@@ -89,6 +89,7 @@ function PostScreen({ route }) {
         </Text>
         <Text>
           Likes:
+          {' '}
           {post.numLikes}
         </Text>
         <View style={styles.buttonRow}>

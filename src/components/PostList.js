@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text, View, FlatList, TouchableOpacity, ScrollView,
 } from 'react-native';
@@ -7,18 +7,28 @@ import { useNavigation } from '@react-navigation/native';
 import styles from '../assets/styles/Style';
 
 function PostList({
-  profileId, posts, isLoading, setIsLoading,
+  profileId, posts, isLoading, setIsLoading, refreshPage
 }) {
   const navigation = useNavigation();
 
   const [buttonError, setButtonError] = useState('');
+  const [isOwnProfile, setIsOwnProfile] = useState();
+  const [userId, setUserId] = useState(0);
+
+  useEffect(async () => {
+    setUserId(await AsyncStorage.getItem('@user_id'));
+    if (userId === profileId) {
+      setIsOwnProfile(true);
+    } else {
+      setIsOwnProfile(false);
+    }
+  }, [userId, profileId]);
 
   const likePost = async (postId) => {
     setButtonError('');
     const authToken = await AsyncStorage.getItem('@session_token');
-    const userId = await AsyncStorage.getItem('@user_id');
 
-    if (userId === profileId) {
+    if (isOwnProfile) {
       setButtonError('You cannot like your own post.');
     } else {
       return fetch(`http://localhost:3333/api/1.0.0/user/${profileId}/post/${postId}/like`, {
@@ -43,8 +53,8 @@ function PostList({
   const unlikePost = async (postId) => {
     setButtonError('');
     const authToken = await AsyncStorage.getItem('@session_token');
-    const userId = await AsyncStorage.getItem('@user_id');
-    if (userId === profileId) {
+    if (isOwnProfile) {
+
       setButtonError('You cannot unlike your own post.');
     } else {
       return fetch(`http://localhost:3333/api/1.0.0/user/${profileId}/post/${postId}/like`, {
@@ -70,10 +80,9 @@ function PostList({
     }
   };
 
-  const editPost = async (author, postId) => {
+  const editPost = async (profileId, postId) => {
     setButtonError('');
-    const userId = await AsyncStorage.getItem('@user_id');
-    if (userId !== author) {
+    if (!isOwnProfile) {
       setButtonError('You can only edit/delete posts you are the author of.');
     } else {
       navigation.navigate('PostScreen', { profileId, postId });
@@ -125,7 +134,7 @@ function PostList({
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => editPost(item.author.user_id, profileId, item.post_id)}
+                  onPress={() => editPost(profileId, item.post_id)}
                 >
                   <Text style={styles.buttonText}>View Post</Text>
                 </TouchableOpacity>

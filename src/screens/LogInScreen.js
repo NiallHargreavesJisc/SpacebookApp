@@ -73,7 +73,7 @@ function LoginScreen({ navigation }) {
           if (responseJson) {
             await AsyncStorage.setItem('@user_id', responseJson.id);
             await AsyncStorage.setItem('@session_token', responseJson.token);
-            await navigation.navigate('Main App');
+            await navigation.navigate('MainApp');
           }
         })
         .catch((error) => {
@@ -86,7 +86,7 @@ function LoginScreen({ navigation }) {
     setInvalidDetails(false);
     setEmailError('');
     setPasswordError('');
-    navigation.navigate('Sign Up');
+    navigation.navigate('SignUp');
   };
 
   return (

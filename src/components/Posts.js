@@ -43,6 +43,7 @@ function Posts({ profileId, refreshPage }) {
         posts={posts}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        refreshPage={refreshPage}
       />
     </>
 

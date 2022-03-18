@@ -37,7 +37,7 @@ function SettingsAndInfoScreen() {
       <View style={styles.settingsButtonView}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Edit Profile')}
+          onPress={() => navigation.navigate('EditProfile')}
         >
           <Text style={styles.buttonText}>Edit Profile</Text>
         </TouchableOpacity>

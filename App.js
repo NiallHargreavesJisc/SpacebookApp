@@ -21,12 +21,12 @@ export const App = () => {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={"Login"} >
           <Stack.Screen name={"Login"} component={LoginScreen} />
-          <Stack.Screen name={"Main App"} component={MainAppScreen} />
-          <Stack.Screen name={"Sign Up"} component={SignupScreen} />
-          <Stack.Screen name={"Edit PostScreen"} component={EditPostScreen} />
-          <Stack.Screen name={"Edit Profile"} component={EditProfileScreen} />
+          <Stack.Screen name={"MainApp"} component={MainAppScreen} />
+          <Stack.Screen name={"SignUp"} component={SignupScreen} />
+          <Stack.Screen name={"EditPostScreen"} component={EditPostScreen} />
+          <Stack.Screen name={"EditProfile"} component={EditProfileScreen} />
           <Stack.Screen name={"Camera"} component={CameraScreen} />
-          <Stack.Screen name={"Friends Profile"} component={Profile} />
+          <Stack.Screen name={"FriendsProfile"} component={Profile} />
           <Stack.Screen name={"PostScreen"} component={PostScreen} />
         </Stack.Navigator>
       </NavigationContainer>

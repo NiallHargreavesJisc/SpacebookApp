@@ -90,6 +90,14 @@ function EditPostScreen({ route }) {
             <Text style={styles.buttonText}>Update Post</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.button}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

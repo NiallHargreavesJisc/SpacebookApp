@@ -9,7 +9,7 @@ function FriendsList({ isLoading, friends }) {
   const navigation = useNavigation();
 
   const goToProfile = (userId) => {
-    navigation.navigate('Friends Profile', { profileId: userId });
+    navigation.navigate('FriendsProfile', { profileId: userId });
   };
 
   if (isLoading === false) {
