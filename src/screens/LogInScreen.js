@@ -19,6 +19,10 @@ const LoginScreen = ({navigation}) => {
 
     const logIn = () => {
 
+        setInvalidDetails(false);
+        setEmailError('');
+        setPasswordError('');
+
         if(email.length == 0){
             setEmailError("Email is required");
         }
@@ -85,6 +89,13 @@ const LoginScreen = ({navigation}) => {
         }
     }
 
+    const signup = () => {
+        setInvalidDetails(false);
+        setEmailError('');
+        setPasswordError('');
+        {navigation.navigate('Sign Up');}
+    }
+
     return(
 
         <View style={styles.container}>
@@ -114,7 +125,7 @@ const LoginScreen = ({navigation}) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {navigation.navigate('Sign Up');}}>
+                    onPress={() => signup()}>
                     <Text style = {styles.buttonText}>No Account? Sign Up</Text>
                 </TouchableOpacity>
             </View>

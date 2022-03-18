@@ -184,9 +184,14 @@ const SignupScreen = ({navigation}) => {
             <View style={styles.buttonRow}>
                 <TouchableOpacity
                     style={styles.button}
-                    title="Sign Up"
                     onPress={() => signUp()}
                 ><Text style={styles.buttonText}>Sign Up</Text></TouchableOpacity>
+            </View>
+            <View style={styles.buttonRow}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.goBack()}
+                ><Text style={styles.buttonText}>Back</Text></TouchableOpacity>
             </View>
         </View>
     )
