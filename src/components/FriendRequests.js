@@ -65,7 +65,7 @@ const FriendRequests = () => {
     }
 
     if (isLoading == false) {
-        if (friendRequests.length == 0) {
+        if (friendRequests.length < 1) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.pageHeadings}>Friend Requests</Text>
@@ -81,14 +81,16 @@ const FriendRequests = () => {
                         renderItem={({item}) => (
                             <View>
                                 <Text>{item.first_name} {item.last_name}</Text>
+                                <View style={styles.buttonRow}>
                                 <TouchableOpacity
-                                    title="Accept"
+                                    style={styles.button}
                                     onPress={() => requestResponse("POST", item.user_id)}
-                                ><Text>Accept</Text></TouchableOpacity>
+                                ><Text style={styles.button}>Accept</Text></TouchableOpacity>
                                 <TouchableOpacity
-                                    title="Reject"
+                                    style={styles.button}
                                     onPress={() => requestResponse("DELETE", item.user_id)}
-                                ><Text>Reject</Text></TouchableOpacity>
+                                ><Text style={styles.button}>Reject</Text></TouchableOpacity>
+                                </View>
                             </View>)}
                         keyExtractor={(item) => item.user_id.toString()} />
                 </View>
