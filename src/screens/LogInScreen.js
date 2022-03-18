@@ -73,13 +73,11 @@ const LoginScreen = ({navigation}) => {
                     }
                 })
                 .then(async (responseJson) => {
-                    console.log(responseJson)
                     if(responseJson){
                         await AsyncStorage.setItem('@user_id', responseJson.id);
                         await AsyncStorage.setItem('@session_token', responseJson.token);
                         await navigation.navigate("Main App");
                     }
-                    console.log(invalidDetails);
                 })
                 .catch((error) => {
                     console.log(error);
