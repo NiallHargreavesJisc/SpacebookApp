@@ -11,12 +11,13 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
     const [buttonError, setButtonError] = useState('');
 
     const likePost = async (postId) => {
+
+        setButtonError('');
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id')
 
         if(userId === profileId){
             setButtonError("You cannot like your own post.")
-            setIsLoading(true)
         }else {
             return fetch("http://localhost:3333/api/1.0.0/user/" + profileId + "/post/" + postId + "/like", {
                 method: 'POST',
@@ -43,11 +44,11 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
     }
 
     const unlikePost = async (postId) => {
+        setButtonError('');
         const authToken = await AsyncStorage.getItem('@session_token');
         const userId = await AsyncStorage.getItem('@user_id')
         if(userId === profileId){
             setButtonError("You cannot unlike your own post.")
-            setIsLoading(true)
         }else {
             return fetch("http://localhost:3333/api/1.0.0/user/" + profileId + "/post/" + postId + "/like", {
                 method: 'DELETE',
@@ -74,10 +75,11 @@ const PostList = ({profileId, posts, isLoading, setIsLoading}) => {
     }
 
     const editPost = async (author, profileId, postId) => {
+
+        setButtonError('');
         const userId = await AsyncStorage.getItem('@user_id')
         if (userId != author) {
             setButtonError("You can only edit/delete posts you are the author of.")
-            setIsLoading(true)
         } else {
             navigation.navigate("PostScreen", {profileId: profileId, postId: postId})
         }
