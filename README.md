@@ -1,6 +1,6 @@
 # SpacebookApp
 
-#### requires local server running on port 3333, server can be found at https://github.com/ash-williams/Spacebook
+###Code can be found at https://github.com/NiallHargreavesJisc/SpacebookApp
 
 ###Before Run
 
