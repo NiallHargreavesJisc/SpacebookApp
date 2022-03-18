@@ -9,9 +9,10 @@ const SearchScreen = () => {
     const [searchParam, setSearchParam] = useState(null);
     const [searchResults, setSearchResults] = useState([]);
     const [resultsRemaining, setResultsRemaining] = useState(false);
+    const [searchError, setSearchError] = useState('');
     const [searchLoading, setSearchLoading] = useState(true);
     const [offset, setOffset] = useState(0);
-    const [userId, setUserId] = useState(0)
+    const [userId, setUserId] = useState(0);
     let fetchUrl = `http://localhost:3333/api/1.0.0/search?limit=10`;
 
     const search = async (fetchUrl, concat) => {
@@ -80,8 +81,8 @@ const SearchScreen = () => {
         }).then((response) => {
             if (response.status === 201) {
                 return response.json()
-            } else if (response.status === 401) {
-                throw '401 response'
+            } else if (response.status === 403) {
+                setSearchError("You are already friends/have a pending request with this user.")
             } else {
                 throw 'Something went wrong';
             }
@@ -107,6 +108,10 @@ const SearchScreen = () => {
                 style={styles.searchButton}
                 onPress={() => initialSearch()}
             ><Text style={styles.buttonText}>Search</Text></TouchableOpacity>
+            {searchError.length >0 &&
+                <Text style={styles.errorText}>{searchError}</Text>
+
+            }
             <ScrollView style={styles.container}>
 
                 <FlatList
