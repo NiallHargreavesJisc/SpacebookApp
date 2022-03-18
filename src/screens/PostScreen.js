@@ -19,9 +19,6 @@ const PostScreen = ({route}) => {
 
     useEffect(async () => {
         const authToken = await AsyncStorage.getItem('@session_token');
-        console.log("Wait");
-        console.log(profileId);
-        console.log(postId);
         return fetch("http://localhost:3333/api/1.0.0/user/" + profileId + "/post/" + postId, {
             method: 'GET',
             headers: {
@@ -30,7 +27,6 @@ const PostScreen = ({route}) => {
         }).then((response) => {
             if (response.status === 200) {
                 return response.json()
-                console.log(response.json);
             } else if (response.status === 401) {
                 throw '401 response'
             } else {
@@ -38,7 +34,6 @@ const PostScreen = ({route}) => {
             }
         })
             .then(async (responseJson) => {
-                console.log(responseJson);
                 await setPost(responseJson);
                 await setIsLoading(false);
             })

@@ -16,10 +16,6 @@ const Profile = ({route}) => {
 
     useEffect(async () => {
         const userId = await AsyncStorage.getItem('@user_id');
-        console.log("User: " +userId);
-        console.log("Profile: " +profileId);
-        console.log("IsownProfile: " + isOwnProfile);
-        console.log("RefreshPage: " + refreshPage);
         if(userId !== profileId){
             setIsOwnProfile(false)
         }
